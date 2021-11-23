@@ -18,12 +18,14 @@ void showErrorMessage(BuildContext context, String error, SnackPosition snackPos
               color: Theme.of(context).colorScheme.onError,
             ),
             const SizedBox(width: 12.0),
-            Text(
-              error,
-              textAlign: TextAlign.left,
-              style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                    color: Theme.of(context).colorScheme.onError,
-                  ),
+            Expanded(
+              child: Text(
+                error,
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
+              ),
             ),
           ],
         ),
