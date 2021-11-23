@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../pages.dart';
 
@@ -28,17 +29,53 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            TextFormField(controller: textEditingController),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () => widget.presenter.save(text: textEditingController.text),
-              child: const Text('Salvar'),
-            ),
-          ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                sliver: SliverFillRemaining(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: textEditingController,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                          ),
+                          expands: true,
+                          minLines: null,
+                          maxLines: null,
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
+                      const SizedBox(height: 24.0),
+                      ElevatedButton(
+                        onPressed: () => widget.presenter.save(text: textEditingController.text),
+                        child: const Text('Salvar'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
