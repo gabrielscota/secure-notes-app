@@ -22,7 +22,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> with NavigationManager {
   @override
   void initState() {
-    handleNavigationWithArgs(widget.presenter.navigateToWithArgsStream);
+    handleNavigationWithArgs(widget.presenter.navigateToWithArgsStream, clearStack: true);
 
     super.initState();
   }
