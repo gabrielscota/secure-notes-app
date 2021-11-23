@@ -4,8 +4,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../chacha20_page.dart';
-import '../new_note_page.dart';
 import '../ui/components/components.dart';
 import '../ui/pages/pages.dart';
 import 'factories/factories.dart';
@@ -58,21 +56,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: Routes.home,
           page: makeHomePage,
-          transition: Transition.fadeIn,
-          transitionDuration: const Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.note,
           page: makeNotePage,
           transition: Transition.downToUp,
-        ),
-        GetPage(
-          name: '/new_note',
-          page: () => const NewNotePage(),
-        ),
-        GetPage(
-          name: '/chacha20',
-          page: () => const Chacha20Page(),
         ),
       ],
     );
