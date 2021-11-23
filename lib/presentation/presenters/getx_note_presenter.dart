@@ -21,9 +21,12 @@ class GetxNotePresenter extends GetxController implements NotePresenter {
       // TODO: Implementar o load da chave local
       final String _secretKey = await encryptGenerateKey.generateKey();
       final String _encryptedText = await encryptData.encrypt(text: text, secretKey: _secretKey);
-      showErrorMessage(Get.context!, 'Encrypted Text: $_encryptedText', SnackPosition.TOP);
       final String _decryptedText = await decryptData.decrypt(text: _encryptedText, secretKey: _secretKey);
-      showErrorMessage(Get.context!, 'Decrypted Text: $_decryptedText', SnackPosition.TOP);
+      showErrorMessage(
+        Get.context!,
+        'Encrypted Text: $_encryptedText\n\nDecrypted Text: $_decryptedText',
+        SnackPosition.TOP,
+      );
     } catch (_) {}
   }
 }

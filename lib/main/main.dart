@@ -60,7 +60,6 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: Routes.note,
           page: makeNotePage,
-          transition: Transition.downToUp,
         ),
       ],
     );
