@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
+import '../../components/components.dart';
 import '../pages.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,38 +23,35 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late int _selectedIndex;
-  late ScrollController scrollController;
+  late ScrollController _scrollController;
+  late PageController _pageController;
+  late TabController _homeTabController;
 
   @override
   void initState() {
     _selectedIndex = 0;
-    scrollController = ScrollController();
+    _scrollController = ScrollController();
+    _pageController = PageController();
+    _homeTabController = TabController(length: 2, vsync: this);
 
     super.initState();
   }
 
-  void handleSelectedIndex(int value) {
+  void _handleSelectedIndex(int value) {
     setState(() {
       _selectedIndex = value;
     });
+    _pageController.animateToPage(
+      value,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: const Color(0xFFFCFCFC).withOpacity(0.0),
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.grey.shade900,
-        // systemNavigationBarContrastEnforced: true,
-        systemNavigationBarDividerColor: Colors.grey.shade900,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -72,224 +70,272 @@ class _HomePageState extends State<HomePage> {
           child: const Icon(IconlyLight.paper_plus),
           backgroundColor: Colors.grey.shade900,
         ),
-        bottomNavigationBar: ClipRRect(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade900,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(32.0)),
+        bottomNavigationBar: SlideBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          handleSelectedIndex: _handleSelectedIndex,
+        ),
+        body: SafeArea(
+          child: PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              HomePageView(
+                scrollController: _scrollController,
+                tabController: _homeTabController,
+              ),
+              HomePageView(
+                scrollController: _scrollController,
+                tabController: _homeTabController,
+              ),
+              HomePageView(
+                scrollController: _scrollController,
+                tabController: _homeTabController,
+              ),
+              HomePageView(
+                scrollController: _scrollController,
+                tabController: _homeTabController,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SlideBottomNavigationBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) handleSelectedIndex;
+
+  const SlideBottomNavigationBar({
+    Key? key,
+    required this.selectedIndex,
+    required this.handleSelectedIndex,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.shade900,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(32.0)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AnimatedNavBarItem(
+              index: 0,
+              selectedIndex: selectedIndex,
+              handleSelectedItem: handleSelectedIndex,
+              label: 'Home',
+              icon: IconlyLight.home,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+            AnimatedNavBarItem(
+              index: 1,
+              selectedIndex: selectedIndex,
+              handleSelectedItem: handleSelectedIndex,
+              label: 'Locked',
+              icon: IconlyLight.lock,
+            ),
+            AnimatedNavBarItem(
+              index: 2,
+              selectedIndex: selectedIndex,
+              handleSelectedItem: handleSelectedIndex,
+              label: 'Categories',
+              icon: IconlyLight.folder,
+            ),
+            AnimatedNavBarItem(
+              index: 3,
+              selectedIndex: selectedIndex,
+              handleSelectedItem: handleSelectedIndex,
+              label: 'Profile',
+              icon: IconlyLight.profile,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomePageView extends StatefulWidget {
+  final ScrollController scrollController;
+  final TabController tabController;
+
+  const HomePageView({
+    Key? key,
+    required this.scrollController,
+    required this.tabController,
+  }) : super(key: key);
+
+  @override
+  State<HomePageView> createState() => _HomePageViewState();
+}
+
+class _HomePageViewState extends State<HomePageView> {
+  void handleSelectedTab(int index) {
+    setState(() {
+      widget.tabController.animateTo(
+        index,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      controller: widget.scrollController,
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AnimatedNavBarItem(
-                  index: 0,
-                  selectedIndex: _selectedIndex,
-                  handleSelectedItem: handleSelectedIndex,
-                  label: 'Home',
-                  icon: IconlyLight.home,
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Hi, ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Gabriel Scotá',
+                        style: GoogleFonts.poppins(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey.shade900,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                AnimatedNavBarItem(
-                  index: 1,
-                  selectedIndex: _selectedIndex,
-                  handleSelectedItem: handleSelectedIndex,
-                  label: 'Locked',
-                  icon: IconlyLight.lock,
-                ),
-                AnimatedNavBarItem(
-                  index: 2,
-                  selectedIndex: _selectedIndex,
-                  handleSelectedItem: handleSelectedIndex,
-                  label: 'Categories',
-                  icon: IconlyLight.folder,
-                ),
-                AnimatedNavBarItem(
-                  index: 3,
-                  selectedIndex: _selectedIndex,
-                  handleSelectedItem: handleSelectedIndex,
-                  label: 'Profile',
-                  icon: IconlyLight.profile,
+                Icon(
+                  IconlyLight.search,
+                  size: 28.0,
+                  color: Colors.grey.shade900,
                 ),
               ],
             ),
           ),
         ),
-        body: SafeArea(
-          child: DefaultTabController(
-            length: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: CustomScrollView(
-                controller: scrollController,
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Hi, ',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 28.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'Gabriel Scotá',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 28.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey.shade900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Icon(
-                            IconlyLight.search,
-                            size: 28.0,
-                            color: Colors.grey.shade900,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey.shade200,
-                      ),
-                      padding: const EdgeInsets.all(6.0),
-                      child: TabBar(
-                        indicatorColor: Colors.green,
-                        tabs: const [
-                          Tab(
-                            text: "Notes",
-                          ),
-                          Tab(
-                            text: "Favorites",
-                          ),
-                        ],
-                        labelColor: const Color(0xFFFCFCFC),
-                        labelStyle: GoogleFonts.poppins(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        unselectedLabelColor: Colors.grey.shade900,
-                        indicator: RectangularIndicator(
-                          bottomLeftRadius: 10.0,
-                          bottomRightRadius: 10.0,
-                          topLeftRadius: 10.0,
-                          topRightRadius: 10.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 24.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'List notes',
-                              style: GoogleFonts.poppins(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey.shade900,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'All notes',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                              const SizedBox(width: 12.0),
-                              Icon(
-                                IconlyLight.filter,
-                                size: 20.0,
-                                color: Colors.grey.shade900,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 24.0),
-                    sliver: LiveSliverGrid(
-                      controller: scrollController,
-                      itemBuilder: (context, index, animation) => FadeTransition(
-                        opacity: Tween<double>(
-                          begin: 0,
-                          end: 1,
-                        ).animate(animation),
-                        child: SlideTransition(
-                          position: Tween<Offset>(
-                            begin: const Offset(0, -0.1),
-                            end: Offset.zero,
-                          ).animate(animation),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: const Color(0xFFFFC5BF).withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                      ),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 12.0,
-                        mainAxisSpacing: 12.0,
-                        childAspectRatio: 0.8,
-                      ),
-                      itemCount: 5,
-                      showItemDuration: const Duration(milliseconds: 300),
-                      showItemInterval: const Duration(milliseconds: 100),
-                    ),
-                  ),
-                  // Expanded(
-                  //   child: StaggeredGridView.builder(
-                  //     gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-                  //       crossAxisCount: 2,
-                  //       staggeredTileBuilder: (index) => const StaggeredTile.count(2, 1),
-                  //       crossAxisSpacing: 12.0,
-                  //       mainAxisSpacing: 12.0,
-                  //       staggeredTileCount: 4,
-                  //     ),
-                  //     physics: const BouncingScrollPhysics(),
-                  //     padding: const EdgeInsets.only(bottom: 24.0),
-                  //     itemCount: 4,
-                  //     itemBuilder: (context, index) => Container(
-                  //       decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(16.0),
-                  //         color: const Color(0xFFFFC5BF).withOpacity(0.5),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
+        SliverToBoxAdapter(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.grey.shade200,
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.all(6.0),
+            child: TabBar(
+              controller: widget.tabController,
+              indicatorColor: Colors.green,
+              tabs: const [
+                Tab(
+                  text: "Notes",
+                ),
+                Tab(
+                  text: "Favorites",
+                ),
+              ],
+              onTap: handleSelectedTab,
+              labelColor: const Color(0xFFFCFCFC),
+              labelStyle: GoogleFonts.poppins(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w400,
+              ),
+              unselectedLabelColor: Colors.grey.shade900,
+              indicator: RectangularIndicator(
+                bottomLeftRadius: 10.0,
+                bottomRightRadius: 10.0,
+                topLeftRadius: 10.0,
+                topRightRadius: 10.0,
               ),
             ),
           ),
         ),
-      ),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'List notes',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey.shade900,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'All notes',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    const SizedBox(width: 12.0),
+                    Icon(
+                      IconlyLight.filter,
+                      size: 20.0,
+                      color: Colors.grey.shade900,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(24.0, 0.0, 24.0, 32.0),
+          sliver: LiveSliverGrid(
+            controller: widget.scrollController,
+            itemBuilder: (context, index, animation) => FadeTransition(
+              opacity: Tween<double>(
+                begin: 0,
+                end: 1,
+              ).animate(animation),
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, -0.1),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    color: widget.tabController.index == 0 ? AppColors.pastelLightBlue : AppColors.pastelLightRed,
+                  ),
+                ),
+              ),
+            ),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12.0,
+              mainAxisSpacing: 12.0,
+              childAspectRatio: 0.8,
+            ),
+            itemCount: widget.tabController.index == 0 ? 5 : 8,
+            showItemDuration: const Duration(milliseconds: 300),
+            showItemInterval: const Duration(milliseconds: 100),
+          ),
+        )
+      ],
     );
   }
 }
