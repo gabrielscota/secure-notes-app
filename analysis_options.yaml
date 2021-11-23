@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    annotate_overrides: false
+    avoid_setters_without_getters: false
+    directives_ordering: true
+    prefer_const_constructors: true
+    prefer_relative_imports: true

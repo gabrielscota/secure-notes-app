@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run All Tests",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/",
+    },
+    {
+      "name": "Launch in Debug Mode",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main/main.dart",
+    },
+    {
+      "name": "Launch in Profile Mode",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile",
+      "program": "lib/main/main.dart",
+    },
+    {
+      "name": "Launch in Release Mode",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/main/main.dart",
+    },
+  ]
+}
