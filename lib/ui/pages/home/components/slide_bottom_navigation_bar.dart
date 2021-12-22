@@ -63,7 +63,7 @@ class _SlideBottomNavigationBarState extends State<SlideBottomNavigationBar> {
               index: 2,
               selectedIndex: _selectedIndex,
               handleSelectedItem: _handleSelectedIndex,
-              label: 'Categories',
+              label: 'Folders',
               icon: IconlyLight.folder,
             ),
             AnimatedBottomNavigationBarItem(

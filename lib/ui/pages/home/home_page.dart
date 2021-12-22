@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             children: const [
               HomePageView(),
               LockedNotesPageView(),
-              CategoriesPageView(),
+              FoldersPageView(),
               ProfilePageView(),
             ],
           ),

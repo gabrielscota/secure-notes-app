@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
-class CategoriesPageView extends StatefulWidget {
-  const CategoriesPageView({Key? key}) : super(key: key);
+class FoldersPageView extends StatefulWidget {
+  const FoldersPageView({Key? key}) : super(key: key);
 
   @override
-  State<CategoriesPageView> createState() => _CategoriesPageViewState();
+  State<FoldersPageView> createState() => _FoldersPageViewState();
 }
 
-class _CategoriesPageViewState extends State<CategoriesPageView> with TickerProviderStateMixin {
+class _FoldersPageViewState extends State<FoldersPageView> with TickerProviderStateMixin {
   late ScrollController _scrollController;
 
   @override
