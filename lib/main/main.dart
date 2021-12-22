@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  if (kDebugMode) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  }
 
   runApp(const MyApp());
 }
@@ -47,15 +53,15 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.darkThemeData,
       themeMode: ThemeMode.system,
       initialRoute: Routes.splash,
-      defaultTransition: Transition.cupertino,
-      transitionDuration: const Duration(milliseconds: 400),
+      defaultTransition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
       navigatorKey: _navigatorKey,
       scaffoldMessengerKey: _scaffoldMessengerKey,
       getPages: [
         GetPage(
           name: Routes.splash,
           page: makeSplashPage,
-          transition: Transition.noTransition,
+          transition: Transition.fadeIn,
         ),
         GetPage(
           name: Routes.home,
