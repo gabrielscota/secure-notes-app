@@ -3,7 +3,7 @@ import '../../../../ui/pages/pages.dart';
 import '../../factories.dart';
 
 SplashPresenter makeGetxSplashPresenter() => GetxSplashPresenter(
-      fetchSecure: makeSecureStorageAdapter(),
-      saveSecure: makeSecureStorageAdapter(),
-      encryptGenerateKey: makeEncryptGenerateKey(),
+      createSecretKey: makeLocalCreateSecretKey(),
+      fetchSecretKey: makeLocalFetchSecretKey(),
+      saveSecretKey: makeLocalSaveSecretKey(),
     );

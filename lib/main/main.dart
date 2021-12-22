@@ -7,12 +7,16 @@ import 'package:intl/intl.dart';
 import '../ui/components/components.dart';
 import '../ui/pages/pages.dart';
 import 'factories/factories.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Intl.defaultLocale = 'en_US';
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }

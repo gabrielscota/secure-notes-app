@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:cryptography/cryptography.dart';
 
@@ -14,7 +15,7 @@ class Chacha20EncryptData implements EncryptData {
   @override
   Future<String> encrypt({required String text, required String secretKey}) async {
     final SecretBox _encrypted = await algorithm.encrypt(
-      text.codeUnits,
+      Uint8List.fromList(utf8.encode(text)),
       secretKey: SecretKey(base64Decode(secretKey)),
     );
     final String _encryptedText = base64Encode(_encrypted.concatenation());

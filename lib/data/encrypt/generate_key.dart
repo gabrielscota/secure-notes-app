@@ -1,3 +1,3 @@
 abstract class EncryptGenerateKey {
-  Future<String> generateKey();
+  Future<String> generate();
 }

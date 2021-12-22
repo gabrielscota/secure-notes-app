@@ -5,5 +5,5 @@ import '../../factories.dart';
 NotePresenter makeGetxNotePresenter() => GetxNotePresenter(
       encryptData: makeEncryptData(),
       decryptData: makeDecryptData(),
-      encryptGenerateKey: makeEncryptGenerateKey(),
+      fetchSecretKey: makeLocalFetchSecretKey(),
     );

@@ -1,33 +1,29 @@
 import 'package:get/get.dart';
 
-import '../../data/cache/cache.dart';
-import '../../data/encrypt/encrypt.dart';
+import '../../domain/usecases/usecases.dart';
 import '../../ui/pages/pages.dart';
 import '../mixins/mixins.dart';
 
 class GetxSplashPresenter extends GetxController with NavigationManager implements SplashPresenter {
-  final FetchSecure fetchSecure;
-  final SaveSecure saveSecure;
-  final EncryptGenerateKey encryptGenerateKey;
+  final CreateSecretKey createSecretKey;
+  final FetchSecretKey fetchSecretKey;
+  final SaveSecretKey saveSecretKey;
 
   GetxSplashPresenter({
-    required this.fetchSecure,
-    required this.saveSecure,
-    required this.encryptGenerateKey,
+    required this.createSecretKey,
+    required this.fetchSecretKey,
+    required this.saveSecretKey,
   });
 
   @override
   Future<void> loadCurrentUser() async {
     try {
-      final String _secretKey = await fetchSecure.fetch(key: 'secretKey');
+      final String _secretKey = await fetchSecretKey.fetch();
       if (_secretKey.isEmpty) {
-        final String _newSecretKey = await encryptGenerateKey.generateKey();
-        await saveSecure.save(key: 'secretKey', value: _newSecretKey);
+        final String _newSecretKey = await createSecretKey.create();
+        await saveSecretKey.save(secretKey: _newSecretKey);
       }
-      final String userJson = await fetchSecure.fetch(key: 'currentUser');
-      if (userJson.isNotEmpty) {
-        // TODO: Criar o usuário através da string
-      } else {}
+      // TODO: Buscar o usuário salvo local e verificar o token
       await Future.delayed(const Duration(seconds: 1));
       navigateToWithArgs = const NavigationArguments(route: Routes.home);
     } catch (_) {}
