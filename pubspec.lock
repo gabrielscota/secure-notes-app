@@ -469,13 +469,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.1"
-  google_fonts:
-    dependency: "direct main"
-    description:
-      name: google_fonts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
   http:
     dependency: transitive
     description:
@@ -497,6 +490,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  iconsax:
+    dependency: "direct main"
+    description:
+      name: iconsax
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.8"
   image:
     dependency: transitive
     description:

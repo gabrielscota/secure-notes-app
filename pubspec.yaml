@@ -30,8 +30,8 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   flutter_svg: ^1.0.2
   get: ^4.6.1
-  google_fonts: ^2.2.0
   iconly: ^1.0.1
+  iconsax: ^0.0.8
   intl: ^0.17.0
   local_auth: ^1.1.10
   lottie: ^1.2.1
@@ -52,14 +52,28 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "lib/ui/assets/launcher_icon/icon.png"
-  remove_alpha_ios: true
-
 flutter:
   uses-material-design: true
 
   assets:
     - lib/ui/assets/animations/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: lib/ui/assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: lib/ui/assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: lib/ui/assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: lib/ui/assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: lib/ui/assets/fonts/Poppins-Bold.ttf
+          weight: 700
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "lib/ui/assets/launcher_icon/icon.png"
+  remove_alpha_ios: true
