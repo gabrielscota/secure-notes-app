@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 class ProfilePageView extends StatefulWidget {
@@ -35,19 +34,15 @@ class _ProfilePageViewState extends State<ProfilePageView> with TickerProviderSt
                       children: [
                         TextSpan(
                           text: 'Hi, ',
-                          style: GoogleFonts.poppins(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                              ),
                         ),
                         TextSpan(
                           text: 'Gabriel Scotá',
-                          style: GoogleFonts.poppins(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade900,
-                          ),
+                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),

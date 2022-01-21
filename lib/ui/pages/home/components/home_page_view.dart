@@ -1,6 +1,5 @@
 import 'package:auto_animated/auto_animated.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
@@ -8,19 +7,22 @@ import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../../theme/theme.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({final Key? key}) : super(key: key);
+  final ScrollController scrollController;
+
+  const HomePageView({
+    final Key? key,
+    required this.scrollController,
+  }) : super(key: key);
 
   @override
   State<HomePageView> createState() => _HomePageViewState();
 }
 
 class _HomePageViewState extends State<HomePageView> with TickerProviderStateMixin {
-  late ScrollController _scrollController;
   late TabController _tabController;
 
   @override
   void initState() {
-    _scrollController = ScrollController();
     _tabController = TabController(length: 2, vsync: this);
 
     super.initState();
@@ -38,7 +40,7 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
 
   @override
   Widget build(final BuildContext context) => CustomScrollView(
-        controller: _scrollController,
+        controller: widget.scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverToBoxAdapter(
@@ -52,19 +54,15 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                       children: [
                         TextSpan(
                           text: 'Hi, ',
-                          style: GoogleFonts.poppins(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                              ),
                         ),
                         TextSpan(
                           text: 'Gabriel Scotá',
-                          style: GoogleFonts.poppins(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade900,
-                          ),
+                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -98,11 +96,10 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                   ),
                 ],
                 onTap: handleSelectedTab,
-                labelColor: const Color(0xFFFCFCFC),
-                labelStyle: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
+                labelColor: Theme.of(context).colorScheme.onPrimary,
+                labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                 unselectedLabelColor: Colors.grey.shade900,
                 indicator: RectangularIndicator(
                   bottomLeftRadius: 10,
@@ -122,11 +119,9 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                   Expanded(
                     child: Text(
                       'List notes',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade900,
-                      ),
+                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                     ),
                   ),
                   GestureDetector(
@@ -149,11 +144,9 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                       children: [
                         Text(
                           'All notes',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey.shade600,
-                          ),
+                          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                              ),
                         ),
                         const SizedBox(width: 12),
                         Icon(
@@ -171,7 +164,7 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
             sliver: LiveSliverGrid(
-              controller: _scrollController,
+              controller: widget.scrollController,
               itemBuilder: (final context, final index, final animation) => FadeTransition(
                 opacity: Tween<double>(
                   begin: 0,

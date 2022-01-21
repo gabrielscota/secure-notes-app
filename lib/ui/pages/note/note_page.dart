@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 import '../pages.dart';
@@ -53,11 +52,9 @@ class _NotePageState extends State<NotePage> {
                           children: [
                             Text(
                               'Nova nota',
-                              style: GoogleFonts.poppins(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey.shade900,
-                              ),
+                              style: Theme.of(context).textTheme.headline4?.copyWith(
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
                             ),
                             const SizedBox(width: 12),
                             Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../mixins/mixins.dart';
 import '../pages.dart';
 import 'components/components.dart';
 import 'components/slide_bottom_navigation_bar.dart';
@@ -17,12 +18,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with NavigationManager {
   late PageController _pageController;
+  late ScrollController _homePageViewScrollController;
 
   @override
   void initState() {
     _pageController = PageController();
+    _homePageViewScrollController = ScrollController();
+
+    handleNavigationWithArgs(widget.presenter.navigateToWithArgsStream);
 
     super.initState();
   }
@@ -40,17 +45,20 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           extendBody: true,
           backgroundColor: const Color(0xFFFCFCFC),
-          floatingActionButton: const AddNewNoteFloatingActionButton(),
+          floatingActionButton: AddNewNoteFloatingActionButton(
+            presenter: widget.presenter,
+            scrollController: _homePageViewScrollController,
+          ),
           bottomNavigationBar: SlideBottomNavigationBar(pageController: _pageController),
           body: SafeArea(
             child: PageView(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                HomePageView(),
-                LockedNotesPageView(),
-                FoldersPageView(),
-                ProfilePageView(),
+              children: [
+                HomePageView(scrollController: _homePageViewScrollController),
+                const LockedNotesPageView(),
+                const FoldersPageView(),
+                const ProfilePageView(),
               ],
             ),
           ),

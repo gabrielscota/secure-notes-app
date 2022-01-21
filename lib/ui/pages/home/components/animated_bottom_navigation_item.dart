@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AnimatedBottomNavigationBarItem extends StatefulWidget {
   final int index;
@@ -84,11 +83,9 @@ class _AnimatedBottomNavigationBarItemState extends State<AnimatedBottomNavigati
                   children: [
                     Text(
                       widget.label,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFFFCFCFC),
-                      ),
+                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                     Container(
                       height: 8,

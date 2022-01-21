@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class FoldersPageView extends StatefulWidget {
   const FoldersPageView({final Key? key}) : super(key: key);
@@ -28,11 +27,9 @@ class _FoldersPageViewState extends State<FoldersPageView> with TickerProviderSt
               padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
               child: Text(
                 'Cooming Soon',
-                style: GoogleFonts.poppins(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey.shade900,
-                ),
+                style: Theme.of(context).textTheme.headline4?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
               ),
             ),
           ),
