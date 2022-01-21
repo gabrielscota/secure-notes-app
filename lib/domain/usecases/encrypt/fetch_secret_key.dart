@@ -1,3 +1,3 @@
-abstract class FetchSecretKey {
+abstract class FetchSecretKeyUseCase {
   Future<String> fetch();
 }

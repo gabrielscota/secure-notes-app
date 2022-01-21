@@ -12,21 +12,21 @@
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "program": "lib/main/main.dart",
+      "program": "lib/main.dart",
     },
     {
       "name": "Launch in Profile Mode",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
-      "program": "lib/main/main.dart",
+      "program": "lib/main.dart",
     },
     {
       "name": "Launch in Release Mode",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
-      "program": "lib/main/main.dart",
+      "program": "lib/main.dart",
     },
   ]
 }

@@ -8,10 +8,8 @@ import 'components/slide_bottom_navigation_bar.dart';
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;
 
-  static const String routeName = '/home';
-
   const HomePage({
-    Key? key,
+    final Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -30,34 +28,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Color(0xFF212121),
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        extendBody: true,
-        backgroundColor: const Color(0xFFFCFCFC),
-        floatingActionButton: const AddNewNoteFloatingActionButton(),
-        bottomNavigationBar: SlideBottomNavigationBar(pageController: _pageController),
-        body: SafeArea(
-          child: PageView(
-            controller: _pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              HomePageView(),
-              LockedNotesPageView(),
-              FoldersPageView(),
-              ProfilePageView(),
-            ],
+  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Color(0xFF212121),
+          systemNavigationBarDividerColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          backgroundColor: const Color(0xFFFCFCFC),
+          floatingActionButton: const AddNewNoteFloatingActionButton(),
+          bottomNavigationBar: SlideBottomNavigationBar(pageController: _pageController),
+          body: SafeArea(
+            child: PageView(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                HomePageView(),
+                LockedNotesPageView(),
+                FoldersPageView(),
+                ProfilePageView(),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

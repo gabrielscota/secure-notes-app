@@ -1,3 +1,3 @@
 abstract class DecryptData {
-  Future<String> decrypt({required String text, required String secretKey});
+  Future<String> decrypt({required final String text, required final String secretKey});
 }

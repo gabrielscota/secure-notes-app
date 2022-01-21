@@ -1,3 +1,3 @@
-abstract class CreateSecretKey {
+abstract class CreateSecretKeyUseCase {
   Future<String> create();
 }

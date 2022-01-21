@@ -3,15 +3,13 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 class AddNewNoteFloatingActionButton extends StatelessWidget {
-  const AddNewNoteFloatingActionButton({Key? key}) : super(key: key);
+  const AddNewNoteFloatingActionButton({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () => Get.toNamed('/note'),
-      elevation: 0.0,
-      child: const Icon(IconlyLight.paper_plus),
-      backgroundColor: Colors.grey.shade900,
-    );
-  }
+  Widget build(final BuildContext context) => FloatingActionButton(
+        onPressed: () => Get.toNamed('/note'),
+        elevation: 0,
+        backgroundColor: Colors.grey.shade900,
+        child: const Icon(IconlyLight.paper_plus),
+      );
 }

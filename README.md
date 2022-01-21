@@ -1,16 +1,12 @@
-# notes
+# Secure Notes App
 
-A new Flutter project.
+Flutter App to save notes secure, using cryptography, clean architecture and some design patterns.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Install and updates packages:
+Ctrl + Shift + P > Pubspec Assist: Add/Update dependencies
+`animations, animate_do, auto_animated, cached_network_image, connectivity_plus, cryptography, device_info_plus, dio, equatable, firebase_analytics, firebase_core, firebase_crashlytics, firebase_performance, flutter_local_notifications, flutter_dotenv, flutter_secure_storage, flutter_svg, get, google_fonts, iconly, intl, modal_bottom_sheet, share_plus, package_info_plus, shimmer, permission_handler, lottie, local_auth, tab_indicator_styler, url_launcher`
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Ctrl + Shift + P > Pubspec Assist: Add/Update dev dependencies
+`flutter_launcher_icons, flutter_lints, flutter_native_splash`

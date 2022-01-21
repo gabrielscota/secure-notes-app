@@ -7,7 +7,7 @@ class SlideBottomNavigationBar extends StatefulWidget {
   final PageController pageController;
 
   const SlideBottomNavigationBar({
-    Key? key,
+    final Key? key,
     required this.pageController,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class _SlideBottomNavigationBarState extends State<SlideBottomNavigationBar> {
     super.initState();
   }
 
-  void _handleSelectedIndex(int value) {
+  void _handleSelectedIndex(final int value) {
     setState(() {
       _selectedIndex = value;
     });
@@ -33,49 +33,46 @@ class _SlideBottomNavigationBarState extends State<SlideBottomNavigationBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.shade900,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(32.0)),
+  Widget build(final BuildContext context) => ClipRRect(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade900,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedBottomNavigationBarItem(
+                index: 0,
+                selectedIndex: _selectedIndex,
+                handleSelectedItem: _handleSelectedIndex,
+                label: 'Home',
+                icon: IconlyLight.home,
+              ),
+              AnimatedBottomNavigationBarItem(
+                index: 1,
+                selectedIndex: _selectedIndex,
+                handleSelectedItem: _handleSelectedIndex,
+                label: 'Locked',
+                icon: IconlyLight.lock,
+              ),
+              AnimatedBottomNavigationBarItem(
+                index: 2,
+                selectedIndex: _selectedIndex,
+                handleSelectedItem: _handleSelectedIndex,
+                label: 'Folders',
+                icon: IconlyLight.folder,
+              ),
+              AnimatedBottomNavigationBarItem(
+                index: 3,
+                selectedIndex: _selectedIndex,
+                handleSelectedItem: _handleSelectedIndex,
+                label: 'Profile',
+                icon: IconlyLight.profile,
+              ),
+            ],
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AnimatedBottomNavigationBarItem(
-              index: 0,
-              selectedIndex: _selectedIndex,
-              handleSelectedItem: _handleSelectedIndex,
-              label: 'Home',
-              icon: IconlyLight.home,
-            ),
-            AnimatedBottomNavigationBarItem(
-              index: 1,
-              selectedIndex: _selectedIndex,
-              handleSelectedItem: _handleSelectedIndex,
-              label: 'Locked',
-              icon: IconlyLight.lock,
-            ),
-            AnimatedBottomNavigationBarItem(
-              index: 2,
-              selectedIndex: _selectedIndex,
-              handleSelectedItem: _handleSelectedIndex,
-              label: 'Folders',
-              icon: IconlyLight.folder,
-            ),
-            AnimatedBottomNavigationBarItem(
-              index: 3,
-              selectedIndex: _selectedIndex,
-              handleSelectedItem: _handleSelectedIndex,
-              label: 'Profile',
-              icon: IconlyLight.profile,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      );
 }

@@ -5,9 +5,12 @@ import '../components/components.dart';
 import '../helpers/errors/errors.dart';
 
 mixin UIErrorManager {
-  void handleMainError(BuildContext context, Stream<UIError?> stream,
-      {SnackPosition snackPosition = SnackPosition.BOTTOM}) {
-    stream.listen((error) {
+  void handleMainError(
+    final BuildContext context,
+    final Stream<UIError?> stream, {
+    final SnackPosition snackPosition = SnackPosition.BOTTOM,
+  }) {
+    stream.listen((final error) {
       if (error != null && error != UIError.noError) {
         showErrorMessage(context, error.description, snackPosition);
       }

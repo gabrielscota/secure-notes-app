@@ -1,8 +1,8 @@
-import '../../../domain/usecases/usecases.dart';
-import '../../cache/cache.dart';
+import '../../../domain/usecases/usecases.dart' show FetchSecretKeyUseCase;
+import '../../cache/cache.dart' show FetchSecureCacheStorage;
 
-class LocalFetchSecretKey implements FetchSecretKey {
-  final FetchSecure fetchSecure;
+class LocalFetchSecretKey implements FetchSecretKeyUseCase {
+  final FetchSecureCacheStorage fetchSecure;
 
   LocalFetchSecretKey({
     required this.fetchSecure,

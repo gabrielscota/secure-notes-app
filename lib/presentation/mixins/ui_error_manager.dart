@@ -1,9 +1,11 @@
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
-import '../../ui/helpers/helpers.dart';
+mixin UIErrorManager {
+  final RxString _dialogError = RxString('');
+  Stream<String> get dialogErrorStream => _dialogError.stream;
+  set dialogError(final String value) => _dialogError.value = value;
 
-mixin UIErrorManager on GetxController {
-  final Rx<UIError> _mainError = Rx<UIError>(UIError.noError);
-  Stream<UIError> get mainErrorStream => _mainError.stream;
-  set mainError(UIError value) => _mainError.subject.add(value);
+  final RxString _snackbarError = RxString('');
+  Stream<String> get snackbarErrorStream => _snackbarError.stream;
+  set snackbarError(final String value) => _dialogError.value = value;
 }

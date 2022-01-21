@@ -3,21 +3,21 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
-void showErrorMessage(BuildContext context, String error, SnackPosition snackPosition) {
+void showErrorMessage(final BuildContext context, final String error, final SnackPosition snackPosition) {
   if (snackPosition == SnackPosition.TOP) {
     Get.showSnackbar(
-      GetBar(
+      GetSnackBar(
         backgroundColor: Theme.of(context).colorScheme.error,
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-        margin: const EdgeInsets.all(24.0),
-        borderRadius: 12.0,
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+        margin: const EdgeInsets.all(24),
+        borderRadius: 12,
         messageText: Row(
           children: [
             Icon(
               IconlyLight.danger,
               color: Theme.of(context).colorScheme.onError,
             ),
-            const SizedBox(width: 12.0),
+            const SizedBox(width: 12),
             Expanded(
               child: Text(
                 error,
@@ -42,9 +42,9 @@ void showErrorMessage(BuildContext context, String error, SnackPosition snackPos
       ),
     );
     Get.showSnackbar(
-      GetBar(
+      GetSnackBar(
         backgroundColor: Theme.of(context).colorScheme.error,
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        padding: const EdgeInsets.symmetric(vertical: 24),
         messageText: Text(
           error,
           textAlign: TextAlign.center,

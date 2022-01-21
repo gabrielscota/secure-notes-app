@@ -1,3 +1,3 @@
-export 'getx_home_presenter.dart';
-export 'getx_note_presenter.dart';
-export 'getx_splash_presenter.dart';
+export 'home/home.dart';
+export 'note/note.dart';
+export 'splash/splash.dart';

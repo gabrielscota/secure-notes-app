@@ -1,3 +1,3 @@
-abstract class SaveSecure {
-  Future<void> save({required String key, required String value});
+abstract class SaveSecureCacheStorage {
+  Future<void> save({required final String key, required final String value});
 }

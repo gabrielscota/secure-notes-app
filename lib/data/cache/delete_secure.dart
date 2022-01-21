@@ -1,3 +1,3 @@
-abstract class DeleteSecure {
-  Future<void> delete({required String key});
+abstract class DeleteSecureCacheStorage {
+  Future<void> delete({required final String key});
 }

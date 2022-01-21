@@ -26,8 +26,10 @@ extension UIErrorExtension on UIError {
         return R.string.msgWeakPassword;
       case UIError.invalidCpf:
         return R.string.msgInvalidCpf;
-      default:
+      case UIError.unexpected:
         return R.string.msgUnexpectedError;
+      case UIError.noError:
+        return '';
     }
   }
 }

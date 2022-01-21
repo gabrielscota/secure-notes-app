@@ -1,7 +1,7 @@
-import '../../../domain/usecases/usecases.dart';
-import '../../encrypt/encrypt.dart';
+import '../../../domain/usecases/usecases.dart' show CreateSecretKeyUseCase;
+import '../../encrypt/encrypt.dart' show EncryptGenerateKey;
 
-class LocalCreateSecretKey implements CreateSecretKey {
+class LocalCreateSecretKey implements CreateSecretKeyUseCase {
   final EncryptGenerateKey encryptGenerateKey;
 
   LocalCreateSecretKey({

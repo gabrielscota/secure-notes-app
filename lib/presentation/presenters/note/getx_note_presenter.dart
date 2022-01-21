@@ -1,15 +1,17 @@
 import 'package:get/get.dart';
 
-import '../../data/encrypt/encrypt.dart';
-import '../../domain/usecases/usecases.dart';
-import '../../ui/components/components.dart';
-import '../../ui/pages/pages.dart';
+import '../../../data/encrypt/encrypt.dart';
+import '../../../domain/helpers/helpers.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../../../ui/components/components.dart';
+import '../../../ui/pages/pages.dart';
+import '../../mixins/mixins.dart';
 
-class GetxNotePresenter extends GetxController implements NotePresenter {
-  // TODO: Remover usecase da camada de infra e criar na camada de dominio
+class GetxNotePresenter extends GetxController with UIErrorManager implements NotePresenter {
+  // TODO(Gabriel): Remover usecase da camada de data e criar na camada de dominio
   final EncryptData encryptData;
   final DecryptData decryptData;
-  final FetchSecretKey fetchSecretKey;
+  final FetchSecretKeyUseCase fetchSecretKey;
 
   GetxNotePresenter({
     required this.encryptData,
@@ -18,7 +20,7 @@ class GetxNotePresenter extends GetxController implements NotePresenter {
   });
 
   @override
-  Future<void> save({required String text}) async {
+  Future<void> save({required final String text}) async {
     try {
       final String _secretKey = await fetchSecretKey.fetch();
       final String _encryptedText = await encryptData.encrypt(text: text, secretKey: _secretKey);
@@ -28,6 +30,8 @@ class GetxNotePresenter extends GetxController implements NotePresenter {
         'Encrypted Text: $_encryptedText\n\nDecrypted Text: $_decryptedText',
         SnackPosition.TOP,
       );
-    } catch (_) {}
+    } on DomainError catch (error) {
+      snackbarError = '${error.message} [${error.code.name}]';
+    }
   }
 }

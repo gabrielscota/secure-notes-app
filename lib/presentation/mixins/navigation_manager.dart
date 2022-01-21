@@ -4,20 +4,16 @@ import 'package:get/get.dart';
 mixin NavigationManager on GetxController {
   final Rx<NavigationArguments> _navigateToWithArgs = Rx<NavigationArguments>(const NavigationArguments(route: ''));
   Stream<NavigationArguments> get navigateToWithArgsStream => _navigateToWithArgs.stream;
-  set navigateToWithArgs(NavigationArguments value) => _navigateToWithArgs.subject.add(value);
-
-  final Rx<NavigationArguments> _navigateToWithArgsAndClearStack =
-      Rx<NavigationArguments>(const NavigationArguments(route: ''));
-  Stream<NavigationArguments> get navigateToWithArgsAndClearStackStream => _navigateToWithArgsAndClearStack.stream;
-  set navigateToWithArgsAndClearStack(NavigationArguments value) => _navigateToWithArgsAndClearStack.subject.add(value);
+  set navigateToWithArgs(final NavigationArguments value) => _navigateToWithArgs.value = value;
 }
 
 class NavigationArguments extends Equatable {
   final String route;
-  final Object? arguments;
+  final bool clearStack;
+  final Map arguments;
 
-  const NavigationArguments({required this.route, this.arguments});
+  const NavigationArguments({required this.route, this.clearStack = false, this.arguments = const {}});
 
   @override
-  List<Object?> get props => [route, arguments];
+  List<Object> get props => [route, clearStack, arguments];
 }

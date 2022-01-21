@@ -8,10 +8,8 @@ import '../pages.dart';
 class SplashPage extends StatefulWidget {
   final SplashPresenter presenter;
 
-  static const String routeName = '/splash';
-
   const SplashPage({
-    Key? key,
+    final Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -28,31 +26,27 @@ class _SplashPageState extends State<SplashPage> with NavigationManager {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        body: SafeArea(
-          child: FutureBuilder(
-            future: widget.presenter.loadCurrentUser(),
-            builder: (context, snapshot) {
-              return Center(
+  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarBrightness: Brightness.light,
+          statusBarIconBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.transparent,
+          systemNavigationBarDividerColor: Colors.transparent,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+        child: Scaffold(
+          body: SafeArea(
+            child: FutureBuilder(
+              future: widget.presenter.loadCurrentUser(),
+              builder: (final context, final snapshot) => Center(
                 child: LottieBuilder.asset(
                   'lib/ui/assets/animations/infinite-loading.json',
-                  width: 128.0,
+                  width: 128,
                 ),
-              );
-            },
+              ),
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
