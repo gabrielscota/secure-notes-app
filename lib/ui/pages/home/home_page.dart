@@ -55,7 +55,10 @@ class _HomePageState extends State<HomePage> with NavigationManager {
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                HomePageView(scrollController: _homePageViewScrollController),
+                HomePageView(
+                  presenter: widget.presenter,
+                  scrollController: _homePageViewScrollController,
+                ),
                 const LockedNotesPageView(),
                 const FoldersPageView(),
                 const ProfilePageView(),

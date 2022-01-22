@@ -4,13 +4,17 @@ import 'package:iconly/iconly.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
+import '../../../../viewmodels/viewmodels.dart';
 import '../../../theme/theme.dart';
+import '../../pages.dart';
 
 class HomePageView extends StatefulWidget {
+  final HomePresenter presenter;
   final ScrollController scrollController;
 
   const HomePageView({
     final Key? key,
+    required this.presenter,
     required this.scrollController,
   }) : super(key: key);
 
@@ -163,37 +167,76 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
           ),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
-            sliver: LiveSliverGrid(
-              controller: widget.scrollController,
-              itemBuilder: (final context, final index, final animation) => FadeTransition(
-                opacity: Tween<double>(
-                  begin: 0,
-                  end: 1,
-                ).animate(animation),
-                child: SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(0, -0.1),
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: _tabController.index == 0 ? AppColors.pastelLightBlue : AppColors.pastelLightRed,
+            sliver: StreamBuilder<List<NoteViewModel>>(
+              stream: widget.presenter.allNotesStream,
+              builder: (final context, final snapshot) {
+                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                  return LiveSliverGrid(
+                    controller: widget.scrollController,
+                    itemBuilder: (final context, final index, final animation) => FadeTransition(
+                      opacity: Tween<double>(
+                        begin: 0,
+                        end: 1,
+                      ).animate(animation),
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(0, -0.1),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: _tabController.index == 0 ? AppColors.pastelLightBlue : AppColors.pastelLightRed,
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Visibility(
+                                visible: snapshot.data![index].title.isNotEmpty,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      snapshot.data![index].title,
+                                      style: Theme.of(context).textTheme.headline5,
+                                    ),
+                                    const SizedBox(height: 6),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  snapshot.data![index].text,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                  maxLines: 7,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: _tabController.index == 0 ? 5 : 8,
-              showItemDuration: const Duration(milliseconds: 300),
-              showItemInterval: const Duration(milliseconds: 100),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 0.8,
+                    ),
+                    itemCount: _tabController.index == 0 ? snapshot.data!.length : 8,
+                    showItemDuration: const Duration(milliseconds: 300),
+                    showItemInterval: const Duration(milliseconds: 100),
+                  );
+                } else {
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
             ),
-          )
+          ),
         ],
       );
 }
