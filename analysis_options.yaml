@@ -173,7 +173,7 @@ linter:
     tighten_type_of_initializing_formals: true
     type_annotate_public_apis: true
     type_init_formals: true
-    unawaited_futures: true
+    unawaited_futures: false
     unnecessary_await_in_return: true
     unnecessary_brace_in_string_interps: true
     unnecessary_const: true

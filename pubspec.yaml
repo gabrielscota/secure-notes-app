@@ -44,6 +44,7 @@ dependencies:
   sliver_tools: ^0.2.5
   tab_indicator_styler: ^2.0.0
   url_launcher: ^6.0.18
+  uuid: ^3.0.5
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
