@@ -7,5 +7,5 @@ mixin UIErrorManager {
 
   final RxString _snackbarError = RxString('');
   Stream<String> get snackbarErrorStream => _snackbarError.stream;
-  set snackbarError(final String value) => _dialogError.value = value;
+  set snackbarError(final String value) => _snackbarError.value = value;
 }

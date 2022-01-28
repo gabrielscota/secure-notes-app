@@ -124,6 +124,7 @@ class _NotePageState extends State<NotePage> {
                                       id: uuid.v4(),
                                       title: noteTitleEditingController.text,
                                       text: noteTextEditingController.text,
+                                      isFavorite: false,
                                     ),
                                   );
                                 },

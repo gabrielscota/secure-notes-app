@@ -7,7 +7,6 @@ class FolderEntity extends Equatable {
   final String title;
   final String description;
   final List<NoteEntity> notes;
-  final bool isSafe;
   final String createdAt;
   final String updatedAt;
 
@@ -16,7 +15,6 @@ class FolderEntity extends Equatable {
     required this.title,
     required this.description,
     required this.notes,
-    required this.isSafe,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -27,7 +25,6 @@ class FolderEntity extends Equatable {
         title,
         description,
         notes,
-        isSafe,
         createdAt,
         updatedAt,
       ];

@@ -22,12 +22,14 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageViewState extends State<HomePageView> with TickerProviderStateMixin {
+class _HomePageViewState extends State<HomePageView> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+
+    widget.presenter.fetchNotes();
 
     super.initState();
   }
@@ -43,200 +45,227 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
   }
 
   @override
-  Widget build(final BuildContext context) => CustomScrollView(
-        controller: widget.scrollController,
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Hi, ',
-                          style: Theme.of(context).textTheme.headline4?.copyWith(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                              ),
-                        ),
-                        TextSpan(
-                          text: 'Gabriel Scotá',
-                          style: Theme.of(context).textTheme.headline4?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                      ],
-                    ),
+  Widget build(final BuildContext context) {
+    super.build(context);
+    return CustomScrollView(
+      controller: widget.scrollController,
+      physics: const BouncingScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Hi, ',
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                              color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                            ),
+                      ),
+                      TextSpan(
+                        text: 'Gabriel Scotá',
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                    ],
                   ),
-                  Icon(
-                    IconlyLight.search,
-                    size: 28,
-                    color: Colors.grey.shade900,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey.shade200,
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              padding: const EdgeInsets.all(6),
-              child: TabBar(
-                controller: _tabController,
-                indicatorColor: Colors.green,
-                tabs: const [
-                  Tab(
-                    text: 'Notes',
-                  ),
-                  Tab(
-                    text: 'Favorites',
-                  ),
-                ],
-                onTap: handleSelectedTab,
-                labelColor: Theme.of(context).colorScheme.onPrimary,
-                labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                unselectedLabelColor: Colors.grey.shade900,
-                indicator: RectangularIndicator(
-                  bottomLeftRadius: 10,
-                  bottomRightRadius: 10,
-                  topLeftRadius: 10,
-                  topRightRadius: 10,
                 ),
+                Icon(
+                  IconlyLight.search,
+                  size: 28,
+                  color: Colors.grey.shade900,
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.grey.shade200,
+            ),
+            margin: const EdgeInsets.symmetric(horizontal: 24),
+            padding: const EdgeInsets.all(6),
+            child: TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.green,
+              tabs: const [
+                Tab(
+                  text: 'Notes',
+                ),
+                Tab(
+                  text: 'Favorites',
+                ),
+              ],
+              onTap: handleSelectedTab,
+              labelColor: Theme.of(context).colorScheme.onPrimary,
+              labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+              unselectedLabelColor: Colors.grey.shade900,
+              indicator: RectangularIndicator(
+                bottomLeftRadius: 10,
+                bottomRightRadius: 10,
+                topLeftRadius: 10,
+                topRightRadius: 10,
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'List notes',
-                      style: Theme.of(context).textTheme.headline6?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                    ),
+        ),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'List notes',
+                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      showBarModalBottomSheet(
-                        context: context,
-                        builder: (final context) => Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Text('Filters'),
-                            ],
-                          ),
-                        ),
-                        expand: false,
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          'All notes',
-                          style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                              ),
-                        ),
-                        const SizedBox(width: 12),
-                        Icon(
-                          IconlyLight.filter,
-                          size: 20,
-                          color: Colors.grey.shade900,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
-            sliver: StreamBuilder<List<NoteViewModel>>(
-              stream: widget.presenter.allNotesStream,
-              builder: (final context, final snapshot) {
-                if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                  return LiveSliverGrid(
-                    controller: widget.scrollController,
-                    itemBuilder: (final context, final index, final animation) => FadeTransition(
-                      opacity: Tween<double>(
-                        begin: 0,
-                        end: 1,
-                      ).animate(animation),
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0, -0.1),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: _tabController.index == 0 ? AppColors.pastelLightBlue : AppColors.pastelLightRed,
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Visibility(
-                                visible: snapshot.data![index].title.isNotEmpty,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      snapshot.data![index].title,
-                                      style: Theme.of(context).textTheme.headline5,
-                                    ),
-                                    const SizedBox(height: 6),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  snapshot.data![index].text,
-                                  style: Theme.of(context).textTheme.subtitle1,
-                                  maxLines: 7,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showBarModalBottomSheet(
+                      context: context,
+                      builder: (final context) => Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('Filters'),
+                          ],
                         ),
                       ),
-                    ),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 0.8,
-                    ),
-                    itemCount: _tabController.index == 0 ? snapshot.data!.length : 8,
-                    showItemDuration: const Duration(milliseconds: 300),
-                    showItemInterval: const Duration(milliseconds: 100),
-                  );
-                } else {
-                  return const SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              },
+                      expand: false,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'All notes',
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                            ),
+                      ),
+                      const SizedBox(width: 12),
+                      Icon(
+                        IconlyLight.filter,
+                        size: 20,
+                        color: Colors.grey.shade900,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      );
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
+          sliver: StreamBuilder<bool>(
+            stream: widget.presenter.isLoadingStream,
+            initialData: true,
+            builder: (final context, final isLoadingSnapshot) {
+              if (isLoadingSnapshot.hasData && isLoadingSnapshot.data! == true) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                );
+              } else {
+                return StreamBuilder<List<NoteViewModel>>(
+                  stream: widget.presenter.allNotesStream,
+                  builder: (final context, final snapshot) {
+                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                      return LiveSliverGrid(
+                        controller: widget.scrollController,
+                        itemBuilder: (final context, final index, final animation) => FadeTransition(
+                          opacity: Tween<double>(
+                            begin: 0,
+                            end: 1,
+                          ).animate(animation),
+                          child: SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(0, 0.1),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: _tabController.index == 0 ? AppColors.pastelLightBlue : AppColors.pastelLightRed,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Visibility(
+                                    visible: snapshot.data![index].title.isNotEmpty,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          snapshot.data![index].title,
+                                          style: Theme.of(context).textTheme.headline6,
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 6),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      snapshot.data![index].text,
+                                      style: Theme.of(context).textTheme.subtitle1,
+                                      maxLines: snapshot.data![index].title.isNotEmpty ? 7 : 9,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.8,
+                        ),
+                        itemCount: _tabController.index == 0 ? snapshot.data!.length : snapshot.data!.length,
+                        showItemDuration: const Duration(milliseconds: 200),
+                        showItemInterval: const Duration(milliseconds: 100),
+                      );
+                    } else if (snapshot.hasData && snapshot.data!.isEmpty) {
+                      return const SliverToBoxAdapter(
+                        child: Center(
+                          child: Text('Ops, parece que você não tem nenhuma nota ainda!'),
+                        ),
+                      );
+                    } else {
+                      return const SliverToBoxAdapter(child: SizedBox());
+                    }
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

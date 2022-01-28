@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import '../../mixins/mixins.dart';
 import '../pages.dart';
 import 'components/components.dart';
-import 'components/slide_bottom_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
   final HomePresenter presenter;
@@ -18,7 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with NavigationManager {
+class _HomePageState extends State<HomePage> with NavigationManager, UIErrorManager {
   late PageController _pageController;
   late ScrollController _homePageViewScrollController;
 
@@ -28,6 +27,7 @@ class _HomePageState extends State<HomePage> with NavigationManager {
     _homePageViewScrollController = ScrollController();
 
     handleNavigationWithArgs(widget.presenter.navigateToWithArgsStream);
+    handleSnackbarErrorStream(stream: widget.presenter.snackbarErrorStream);
 
     super.initState();
   }
