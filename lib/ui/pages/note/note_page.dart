@@ -77,6 +77,7 @@ class _NotePageState extends State<NotePage> {
                                 ),
                                 keyboardType: TextInputType.text,
                                 style: Theme.of(context).textTheme.headline5,
+                                textCapitalization: TextCapitalization.sentences,
                               ),
                             ),
                           ],
@@ -107,6 +108,7 @@ class _NotePageState extends State<NotePage> {
                             style: Theme.of(context).textTheme.headline6?.copyWith(
                                   fontWeight: FontWeight.w400,
                                 ),
+                            textCapitalization: TextCapitalization.sentences,
                           ),
                         ),
                         const SizedBox(height: 24),
