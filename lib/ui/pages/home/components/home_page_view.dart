@@ -1,10 +1,14 @@
 import 'package:auto_animated/auto_animated.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
+import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 import '../../../../viewmodels/viewmodels.dart';
+import '../../../mixins/mixins.dart';
 import '../../../theme/theme.dart';
 import '../../pages.dart';
 
@@ -22,12 +26,15 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageViewState extends State<HomePageView> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _HomePageViewState extends State<HomePageView>
+    with ConnectivityManager, TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+
+    handleConnectivityWarning();
 
     widget.presenter.fetchNotes();
 
@@ -50,6 +57,7 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
     return CustomScrollView(
       controller: widget.scrollController,
       physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
@@ -132,10 +140,15 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                         ),
                   ),
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     showBarModalBottomSheet(
                       context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                      ),
+                      bounce: false,
+                      backgroundColor: Theme.of(context).colorScheme.background,
                       builder: (final context) => Padding(
                         padding: const EdgeInsets.all(24),
                         child: Column(
@@ -145,24 +158,26 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                           ],
                         ),
                       ),
-                      expand: false,
                     );
                   },
-                  child: Row(
-                    children: [
-                      Text(
-                        'All notes',
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                              color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                            ),
-                      ),
-                      const SizedBox(width: 12),
-                      Icon(
-                        IconlyLight.filter,
-                        size: 20,
-                        color: Colors.grey.shade900,
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      children: [
+                        Text(
+                          'All notes',
+                          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                              ),
+                        ),
+                        const SizedBox(width: 12),
+                        Icon(
+                          IconlyLight.filter,
+                          size: 20,
+                          color: Colors.grey.shade900,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -177,9 +192,12 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
             builder: (final context, final isLoadingSnapshot) {
               if (isLoadingSnapshot.hasData && isLoadingSnapshot.data! == true) {
                 return SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.primary,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(top: 24),
+                    child: LottieBuilder.asset(
+                      'lib/ui/assets/animations/infinite-loading.json',
+                      width: 56,
                     ),
                   ),
                 );
@@ -187,6 +205,40 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                 return StreamBuilder<List<NoteViewModel>>(
                   stream: widget.presenter.allNotesStream,
                   builder: (final context, final snapshot) {
+                    if (snapshot.hasError) {
+                      return SliverToBoxAdapter(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 32),
+                                child: SvgPicture.asset(
+                                  'lib/ui/assets/illustrations/error.svg',
+                                  height: 192,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                              Text(
+                                'Oops, parece que algo de errado aconteceu ao buscar suas notas.',
+                                style: Theme.of(context).textTheme.headline6?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 24),
+                              ElevatedButton(
+                                onPressed: widget.presenter.fetchNotes,
+                                child: const Text('Recarregar'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
                     if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return LiveSliverGrid(
                         controller: widget.scrollController,
@@ -244,13 +296,50 @@ class _HomePageViewState extends State<HomePageView> with TickerProviderStateMix
                           childAspectRatio: 0.8,
                         ),
                         itemCount: _tabController.index == 0 ? snapshot.data!.length : snapshot.data!.length,
-                        showItemDuration: const Duration(milliseconds: 200),
+                        showItemDuration: const Duration(milliseconds: 100),
                         showItemInterval: const Duration(milliseconds: 100),
                       );
                     } else if (snapshot.hasData && snapshot.data!.isEmpty) {
-                      return const SliverToBoxAdapter(
-                        child: Center(
-                          child: Text('Ops, parece que você não tem nenhuma nota ainda!'),
+                      return SliverToBoxAdapter(
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 32),
+                                child: SvgPicture.asset(
+                                  'lib/ui/assets/illustrations/empty_notes.svg',
+                                  height: 192,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Oops, parece que você ainda não tem nenhuma nota, que tal ',
+                                    ),
+                                    TextSpan(
+                                      text: 'criar',
+                                      style: Theme.of(context).textTheme.headline6?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                      recognizer: TapGestureRecognizer()..onTap = widget.presenter.goToNotePage,
+                                    ),
+                                    const TextSpan(
+                                      text: ' sua primeira?',
+                                    ),
+                                  ],
+                                ),
+                                style: Theme.of(context).textTheme.headline6?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     } else {

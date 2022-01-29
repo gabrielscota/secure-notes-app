@@ -38,10 +38,12 @@ class GetxHomePresenter extends GetxController
       }
       isLoading = false;
       await Future.delayed(const Duration(milliseconds: 100));
-      _allNotes.addAll(_notesViewModel);
+      _allNotes.addAll([]);
       _favoriteNotes.addAll(_notesViewModel.where((final note) => note.isFavorite));
     } on DomainError catch (error) {
       isLoading = false;
+      await Future.delayed(const Duration(milliseconds: 100));
+      _allNotes.subject.addError(error, StackTrace.empty);
       snackbarError = '${error.message} [${error.code.name}]';
     }
   }

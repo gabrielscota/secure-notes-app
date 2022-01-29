@@ -18,6 +18,7 @@ class LocalFetchFolders implements FetchFoldersUseCase {
     try {
       // final String jsonStringfied = await fetchSecureCacheStorage.fetch(key: 'folders');
       final jsonStringfied = mockedLocalFoldersData();
+      // throw ModelError.localParseData();
       return LocalFoldersModel.fromJson(jsonStringfied: jsonStringfied).toEntity();
     } on DomainError catch (error) {
       throw error.toDomainError();

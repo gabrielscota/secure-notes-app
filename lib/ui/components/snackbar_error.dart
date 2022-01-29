@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 void showSnackbarError({required final String message}) {
   if (Get.isSnackbarOpen) {
@@ -6,7 +8,24 @@ void showSnackbarError({required final String message}) {
   } else {
     Get.showSnackbar(
       GetSnackBar(
-        message: message,
+        backgroundColor: Theme.of(Get.context!).colorScheme.error,
+        duration: const Duration(seconds: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+        messageText: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Icon(Iconsax.danger),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                      color: Theme.of(Get.context!).colorScheme.onError,
+                    ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
