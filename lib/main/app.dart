@@ -36,17 +36,21 @@ class App extends StatelessWidget {
         scaffoldMessengerKey: _scaffoldMessengerKey,
         getPages: [
           GetPage(
-            name: Routes.splash,
-            page: makeSplashPage,
-            transition: Transition.fadeIn,
-          ),
-          GetPage(
             name: Routes.home,
             page: makeHomePage,
           ),
           GetPage(
             name: Routes.note,
             page: makeNotePage,
+          ),
+          GetPage(
+            name: Routes.onboarding,
+            page: makeOnboardingPage,
+          ),
+          GetPage(
+            name: Routes.splash,
+            page: makeSplashPage,
+            transition: Transition.fadeIn,
           ),
         ],
       );

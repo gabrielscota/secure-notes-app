@@ -29,11 +29,11 @@ class GetxHomePresenter extends GetxController
   Future<void> fetchNotes() async {
     try {
       isLoading = true;
-      final List<FolderEntity> _folders = await fetchFoldersUseCase.call();
+      final FoldersEntity _folders = await fetchFoldersUseCase.call();
       // TODO: Remover loading futuramente
       await Future.delayed(const Duration(seconds: 1));
       final List<NoteViewModel> _notesViewModel = [];
-      for (final folder in _folders) {
+      for (final folder in _folders.folders) {
         _notesViewModel.addAll(folder.toViewModel().notes);
       }
       isLoading = false;

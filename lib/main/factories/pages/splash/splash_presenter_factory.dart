@@ -3,7 +3,8 @@ import '../../../../ui/pages/pages.dart';
 import '../../factories.dart';
 
 SplashPresenter makeGetxSplashPresenter() => GetxSplashPresenter(
-      createSecretKey: makeLocalCreateSecretKey(),
-      fetchSecretKey: makeLocalFetchSecretKey(),
-      saveSecretKey: makeLocalSaveSecretKey(),
+      createSecretKeyUseCase: makeLocalCreateSecretKey(),
+      fetchSecretKeyUseCase: makeLocalFetchSecretKey(),
+      saveSecretKeyUseCase: makeLocalSaveSecretKey(),
+      fetchCurrentUserUseCase: makeLocalFetchCurrentUser(),
     );

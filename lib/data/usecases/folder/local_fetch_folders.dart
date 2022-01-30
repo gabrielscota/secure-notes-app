@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import '../../../domain/entities/entities.dart' show FolderEntity;
+import '../../../domain/entities/entities.dart' show FoldersEntity;
 import '../../../domain/helpers/helpers.dart' show DomainError, DomainErrorExtension;
 import '../../../domain/usecases/usecases.dart' show FetchFoldersUseCase;
 import '../../cache/cache.dart' show FetchSecureCacheStorage;
-import '../../models/models.dart' show LocalFolderModel, LocalFoldersModel, LocalNoteModel;
+import '../../models/models.dart' show FolderModel, FoldersModel, NoteModel;
 
 class LocalFetchFolders implements FetchFoldersUseCase {
   final FetchSecureCacheStorage fetchSecureCacheStorage;
@@ -14,12 +14,12 @@ class LocalFetchFolders implements FetchFoldersUseCase {
   });
 
   @override
-  Future<List<FolderEntity>> call() async {
+  Future<FoldersEntity> call() async {
     try {
       // final String jsonStringfied = await fetchSecureCacheStorage.fetch(key: 'folders');
       final jsonStringfied = mockedLocalFoldersData();
       // throw ModelError.localParseData();
-      return LocalFoldersModel.fromJson(jsonStringfied: jsonStringfied).toEntity();
+      return FoldersModel.fromJson(json: jsonStringfied);
     } on DomainError catch (error) {
       throw error.toDomainError();
     }
@@ -27,25 +27,25 @@ class LocalFetchFolders implements FetchFoldersUseCase {
 }
 
 String mockedLocalFoldersData() {
-  final LocalFoldersModel folders = LocalFoldersModel(
-    folders: [
-      LocalFolderModel(
-        id: '0',
-        title: 'Default',
-        description: 'Teste',
-        notes: [
-          LocalNoteModel(
-            id: '0',
-            title: 'Teste note 1',
-            text: 'Text',
-            isFavorite: false,
-            tags: [],
-            createdAt: '',
-            updatedAt: '',
+  const FoldersModel folders = FoldersModel(
+    dtoFolders: [
+      FolderModel(
+        dtoId: '0',
+        dtoTitle: 'Default',
+        dtoDescription: 'Teste',
+        dtoNotes: [
+          NoteModel(
+            dtoId: '0',
+            dtoTitle: 'Teste note 1',
+            dtoText: 'Text',
+            dtoIsFavorite: false,
+            dtoTags: [],
+            dtoCreatedAt: '',
+            dtoUpdatedAt: '',
           ),
         ],
-        createdAt: '',
-        updatedAt: '',
+        dtoCreatedAt: '',
+        dtoUpdatedAt: '',
       ),
     ],
   );
