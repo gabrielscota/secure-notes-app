@@ -70,7 +70,10 @@ mixin AppTheme {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
           primary: colorScheme.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: AppTextTheme.poppinsTextTheme.subtitle1?.copyWith(color: colorScheme.onPrimary),
+          textStyle: AppTextTheme.poppinsTextTheme.subtitle1?.copyWith(
+            color: colorScheme.onPrimary,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       );
 

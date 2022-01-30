@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../../domain/entities/entities.dart' show FoldersEntity;
 import '../../../domain/helpers/helpers.dart' show DomainError, DomainErrorExtension;
 import '../../../domain/usecases/usecases.dart' show FetchFoldersUseCase;
@@ -49,5 +47,5 @@ String mockedLocalFoldersData() {
       ),
     ],
   );
-  return jsonEncode(folders.toJson());
+  return folders.toJson();
 }

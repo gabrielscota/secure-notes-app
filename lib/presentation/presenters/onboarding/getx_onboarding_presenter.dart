@@ -24,6 +24,7 @@ class GetxOnboardingPresenter extends GetxController
   final Rx<UIError> _nameError = Rx<UIError>(UIError.noError);
   @override
   Stream<UIError> get nameErrorStream => _nameError.stream;
+  @override
   void validateName(final String value) {
     _name = value;
     _nameError.value = _validateField('name');

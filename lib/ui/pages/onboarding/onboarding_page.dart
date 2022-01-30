@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../mixins/mixins.dart';
 import '../pages.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -16,12 +17,14 @@ class OnboardingPage extends StatefulWidget {
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingPageState extends State<OnboardingPage> with NavigationManager {
   late TextEditingController nameEditingController;
 
   @override
   void initState() {
     nameEditingController = TextEditingController();
+
+    handleNavigationWithArgs(widget.presenter.navigateToWithArgsStream);
 
     super.initState();
   }
@@ -52,45 +55,61 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           'Please enter your name to get started.',
                           style: Theme.of(context).textTheme.headline5,
                         ),
-                        const SizedBox(height: 24),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: nameEditingController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                  hintText: 'Name',
-                                  hintStyle: Theme.of(context).textTheme.headline4?.copyWith(
-                                        color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                                        fontWeight: FontWeight.w400,
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: nameEditingController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    focusedErrorBorder: InputBorder.none,
+                                    hintText: 'Name',
+                                    hintStyle: Theme.of(context).textTheme.headline4?.copyWith(
+                                          color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                    alignLabelWithHint: true,
+                                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                                    contentPadding: EdgeInsets.zero,
+                                  ),
+                                  keyboardType: TextInputType.name,
+                                  style: Theme.of(context).textTheme.headline4?.copyWith(
+                                        color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                       ),
-                                  alignLabelWithHint: true,
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                                  contentPadding: EdgeInsets.zero,
+                                  textCapitalization: TextCapitalization.words,
+                                  autofocus: true,
+                                  onChanged: widget.presenter.validateName,
+                                  showCursor: true,
+                                  scrollPhysics: const BouncingScrollPhysics(),
+                                  textInputAction: TextInputAction.done,
                                 ),
-                                keyboardType: TextInputType.text,
-                                style: Theme.of(context).textTheme.headline5,
-                                textCapitalization: TextCapitalization.sentences,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 24),
                         Row(
                           children: [
                             Expanded(
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  widget.presenter.saveUser();
-                                  Get.back();
-                                },
-                                child: const Text('Start to use'),
+                              child: StreamBuilder<bool>(
+                                stream: widget.presenter.isFormValidStream,
+                                initialData: false,
+                                builder: (final context, final snapshot) => ElevatedButton(
+                                  onPressed: snapshot.hasData && snapshot.data!
+                                      ? () async {
+                                          widget.presenter.saveUser();
+                                          Get.back();
+                                        }
+                                      : null,
+                                  child: const Text('Start to use'),
+                                ),
                               ),
                             ),
                           ],

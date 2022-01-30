@@ -74,7 +74,7 @@ class FolderModel extends FolderEntity {
         'id': dtoId,
         'title': dtoTitle,
         'description': dtoDescription,
-        'notes': dtoNotes.map((final note) => note.toJson()).toList(),
+        'notes': dtoNotes.map((final note) => note.toMap()).toList(),
         'createdAt': dtoCreatedAt,
         'updatedAt': dtoUpdatedAt,
       };

@@ -42,7 +42,7 @@ class FoldersModel extends FoldersEntity {
   }
 
   Map<String, dynamic> toMap() => {
-        'folders': dtoFolders.map((final folder) => folder.toJson()).toList(),
+        'folders': dtoFolders.map((final folder) => folder.toMap()).toList(),
       };
 
   String toJson() => jsonEncode(toMap());

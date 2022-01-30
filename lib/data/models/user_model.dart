@@ -22,10 +22,11 @@ class UserModel extends UserEntity {
     try {
       final Map<String, dynamic> jsonDecoded = jsonDecode(json.isEmpty ? '{}' : json);
       if (!jsonDecoded.keys.toSet().containsAll([
-        'id',
-        'name',
-        'email',
-      ])) {
+            'id',
+            'name',
+            'email',
+          ]) &&
+          jsonDecoded.isNotEmpty) {
         throw ModelError.localInvalidData();
       }
       return UserModel(

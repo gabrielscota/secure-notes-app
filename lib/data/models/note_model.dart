@@ -80,7 +80,7 @@ class NoteModel extends NoteEntity {
         'title': dtoTitle,
         'text': dtoText,
         'isFavorite': dtoIsFavorite,
-        'tags': dtoTags.map((final tag) => tag.toJson()).toList(),
+        'tags': dtoTags.map((final tag) => tag.toMap()).toList(),
         'createdAt': dtoCreatedAt,
         'updatedAt': dtoUpdatedAt,
       };
