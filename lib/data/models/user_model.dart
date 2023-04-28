@@ -18,7 +18,7 @@ class UserModel extends UserEntity {
           email: dtoEmail,
         );
 
-  factory UserModel.fromJson({required final String json}) {
+  factory UserModel.fromJson({required String json}) {
     try {
       final Map<String, dynamic> jsonDecoded = jsonDecode(json.isEmpty ? '{}' : json);
       if (!jsonDecoded.keys.toSet().containsAll([
@@ -41,7 +41,7 @@ class UserModel extends UserEntity {
     }
   }
 
-  factory UserModel.fromDomain({required final UserEntity entity}) {
+  factory UserModel.fromDomain({required UserEntity entity}) {
     try {
       return UserModel(
         dtoId: entity.id,

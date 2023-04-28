@@ -26,7 +26,6 @@ linter:
     diagnostic_describe_all_properties: false
     empty_statements: true
     hash_and_equals: true
-    invariant_booleans: true # (Experimental)
     iterable_contains_unrelated_type: true
     list_remove_unrelated_type: true
     literal_only_boolean_expressions: true
@@ -98,7 +97,7 @@ linter:
     eol_at_end_of_file: true
     exhaustive_cases: true
     file_names: true
-    flutter_style_todos: true
+    flutter_style_todos: false
     implementation_imports: true
     join_return_with_assignment: true
     leading_newlines_in_multiline_strings: true
@@ -106,7 +105,6 @@ linter:
     library_prefixes: true
     library_private_types_in_public_api: false
     lines_longer_than_80_chars: false
-    missing_enum_constant_in_switch: false
     missing_whitespace_between_adjacent_strings: true
     no_default_cases: false # (Experimental)
     no_leading_underscores_for_library_prefixes: true
@@ -140,7 +138,6 @@ linter:
     prefer_final_fields: true
     prefer_final_in_for_each: true
     prefer_final_locals: true
-    prefer_final_parameters: true
     prefer_for_elements_to_map_fromIterable: true
     prefer_foreach: true
     prefer_function_declarations_over_variables: true
@@ -181,7 +178,6 @@ linter:
     unnecessary_constructor_name: true
     unnecessary_final: false
     unnecessary_getters_setters: true
-    unnecessary_import: true
     unnecessary_lambdas: true
     unnecessary_late: true
     unnecessary_new: true

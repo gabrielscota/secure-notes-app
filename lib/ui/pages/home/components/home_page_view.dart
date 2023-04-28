@@ -20,7 +20,7 @@ class HomePageView extends StatefulWidget {
   final ScrollController scrollController;
 
   const HomePageView({
-    final Key? key,
+    Key? key,
     required this.presenter,
     required this.scrollController,
   }) : super(key: key);
@@ -44,7 +44,7 @@ class _HomePageViewState extends State<HomePageView>
     super.initState();
   }
 
-  void handleSelectedTab(final int index) {
+  void handleSelectedTab(int index) {
     setState(() {
       _tabController.animateTo(
         index,
@@ -55,7 +55,7 @@ class _HomePageViewState extends State<HomePageView>
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     super.build(context);
     return CustomScrollView(
       controller: widget.scrollController,
@@ -65,7 +65,7 @@ class _HomePageViewState extends State<HomePageView>
         StreamBuilder<bool>(
           stream: widget.presenter.isLoadingStream,
           initialData: true,
-          builder: (final context, final isLoadingSnapshot) {
+          builder: (context, isLoadingSnapshot) {
             if (isLoadingSnapshot.hasData && isLoadingSnapshot.data! == true) {
               return SliverFillRemaining(
                 child: Container(
@@ -80,7 +80,7 @@ class _HomePageViewState extends State<HomePageView>
             } else {
               return StreamBuilder<List<NoteViewModel>>(
                 stream: widget.presenter.allNotesStream,
-                builder: (final context, final snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return SliverToBoxAdapter(
                       child: Container(
@@ -99,7 +99,7 @@ class _HomePageViewState extends State<HomePageView>
                             ),
                             Text(
                               'Oops, parece que algo de errado aconteceu ao buscar suas notas.',
-                              style: Theme.of(context).textTheme.headline6?.copyWith(
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                   ),
@@ -140,7 +140,7 @@ class _HomePageViewState extends State<HomePageView>
                               ],
                               onTap: handleSelectedTab,
                               labelColor: Theme.of(context).colorScheme.onPrimary,
-                              labelStyle: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              labelStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Theme.of(context).colorScheme.primary,
                                   ),
                               unselectedLabelColor: Colors.grey.shade900,
@@ -162,7 +162,7 @@ class _HomePageViewState extends State<HomePageView>
                                 Expanded(
                                   child: Text(
                                     'List notes',
-                                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                           color: Theme.of(context).colorScheme.primary,
                                         ),
                                   ),
@@ -176,7 +176,7 @@ class _HomePageViewState extends State<HomePageView>
                                       ),
                                       bounce: false,
                                       backgroundColor: Theme.of(context).colorScheme.background,
-                                      builder: (final context) => Padding(
+                                      builder: (context) => Padding(
                                         padding: const EdgeInsets.all(24),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -193,7 +193,7 @@ class _HomePageViewState extends State<HomePageView>
                                       children: [
                                         Text(
                                           'All notes',
-                                          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                 color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                               ),
                                         ),
@@ -215,7 +215,7 @@ class _HomePageViewState extends State<HomePageView>
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           sliver: LiveSliverGrid(
                             controller: widget.scrollController,
-                            itemBuilder: (final context, final index, final animation) => FadeTransition(
+                            itemBuilder: (context, index, animation) => FadeTransition(
                               opacity: Tween<double>(
                                 begin: 0,
                                 end: 1,
@@ -242,7 +242,7 @@ class _HomePageViewState extends State<HomePageView>
                                           children: [
                                             Text(
                                               snapshot.data![index].title,
-                                              style: Theme.of(context).textTheme.headline6,
+                                              style: Theme.of(context).textTheme.titleLarge,
                                               maxLines: 1,
                                               softWrap: true,
                                               overflow: TextOverflow.ellipsis,
@@ -254,7 +254,7 @@ class _HomePageViewState extends State<HomePageView>
                                       Expanded(
                                         child: Text(
                                           snapshot.data![index].text,
-                                          style: Theme.of(context).textTheme.subtitle1,
+                                          style: Theme.of(context).textTheme.titleMedium,
                                           maxLines: snapshot.data![index].title.isNotEmpty ? 7 : 9,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -291,13 +291,13 @@ class _HomePageViewState extends State<HomePageView>
                                     children: [
                                       TextSpan(
                                         text: 'Hi, ',
-                                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                               color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                             ),
                                       ),
                                       TextSpan(
                                         text: 'Gabriel Scotá',
-                                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                               color: Theme.of(context).colorScheme.primary,
                                             ),
                                       ),
@@ -335,7 +335,7 @@ class _HomePageViewState extends State<HomePageView>
                                         ),
                                         TextSpan(
                                           text: 'create',
-                                          style: Theme.of(context).textTheme.headline6?.copyWith(
+                                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                                 fontWeight: FontWeight.w600,
                                               ),
                                           recognizer: TapGestureRecognizer()..onTap = widget.presenter.goToNotePage,
@@ -345,7 +345,7 @@ class _HomePageViewState extends State<HomePageView>
                                         ),
                                       ],
                                     ),
-                                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                           fontWeight: FontWeight.w400,
                                           color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                         ),
@@ -384,7 +384,7 @@ class _HomePageViewState extends State<HomePageView>
                                       ),
                                       TextSpan(
                                         text: 'create',
-                                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                               fontWeight: FontWeight.w600,
                                             ),
                                         recognizer: TapGestureRecognizer()..onTap = widget.presenter.goToNotePage,
@@ -394,7 +394,7 @@ class _HomePageViewState extends State<HomePageView>
                                       ),
                                     ],
                                   ),
-                                  style: Theme.of(context).textTheme.headline6?.copyWith(
+                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                       ),

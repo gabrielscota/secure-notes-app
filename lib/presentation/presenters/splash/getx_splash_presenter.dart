@@ -23,10 +23,10 @@ class GetxSplashPresenter extends GetxController with NavigationManager, UIError
   Future<void> loadCurrentUser() async {
     try {
       // TODO: Verificar a etapa de criação da secret key
-      final String _secretKey = await fetchSecretKeyUseCase.fetch();
-      if (_secretKey.isEmpty) {
-        final String _newSecretKey = await createSecretKeyUseCase.create();
-        await saveSecretKeyUseCase.save(secretKey: _newSecretKey);
+      final String secretKey = await fetchSecretKeyUseCase.fetch();
+      if (secretKey.isEmpty) {
+        final String newSecretKey = await createSecretKeyUseCase.create();
+        await saveSecretKeyUseCase.save(secretKey: newSecretKey);
       }
       await Future.delayed(const Duration(seconds: 1));
       final UserEntity currentUser = await fetchCurrentUserUseCase.call();

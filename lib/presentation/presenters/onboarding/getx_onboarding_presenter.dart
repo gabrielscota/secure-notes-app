@@ -25,13 +25,13 @@ class GetxOnboardingPresenter extends GetxController
   @override
   Stream<UIError> get nameErrorStream => _nameError.stream;
   @override
-  void validateName(final String value) {
+  void validateName(String value) {
     _name = value;
     _nameError.value = _validateField('name');
     _validateForm();
   }
 
-  UIError _validateField(final String field) {
+  UIError _validateField(String field) {
     final formData = {
       'name': _name,
     };

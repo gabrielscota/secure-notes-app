@@ -14,14 +14,14 @@ class Chacha20EncryptData implements EncryptData {
   });
 
   @override
-  Future<String> encrypt({required final String text, required final String secretKey}) async {
+  Future<String> encrypt({required String text, required String secretKey}) async {
     try {
-      final SecretBox _encrypted = await algorithm.encrypt(
+      final SecretBox encrypted = await algorithm.encrypt(
         Uint8List.fromList(utf8.encode(text)),
         secretKey: SecretKey(base64Decode(secretKey)),
       );
-      final String _encryptedText = base64Encode(_encrypted.concatenation());
-      return _encryptedText;
+      final String encryptedText = base64Encode(encrypted.concatenation());
+      return encryptedText;
     } on EncryptError {
       throw EncryptError.decryptData();
     }

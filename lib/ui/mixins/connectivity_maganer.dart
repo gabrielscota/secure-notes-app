@@ -5,22 +5,22 @@ import 'package:iconsax/iconsax.dart';
 
 mixin ConnectivityManager {
   Future<void> handleConnectivityWarning() async {
-    bool _hasShowConnectionError = false;
+    bool hasShowConnectionError = false;
 
     final ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none && !_hasShowConnectionError) {
-      _hasShowConnectionError = true;
+    if (connectivityResult == ConnectivityResult.none && !hasShowConnectionError) {
+      hasShowConnectionError = true;
       Get.closeAllSnackbars();
       Get.showSnackbar(connectivityWarningSnackbar());
     }
 
-    Connectivity().onConnectivityChanged.listen((final event) {
-      if (event == ConnectivityResult.none && !_hasShowConnectionError) {
-        _hasShowConnectionError = true;
+    Connectivity().onConnectivityChanged.listen((event) {
+      if (event == ConnectivityResult.none && !hasShowConnectionError) {
+        hasShowConnectionError = true;
         Get.closeAllSnackbars();
         Get.showSnackbar(connectivityWarningSnackbar());
-      } else if ((event == ConnectivityResult.wifi || event == ConnectivityResult.mobile) && _hasShowConnectionError) {
-        _hasShowConnectionError = false;
+      } else if ((event == ConnectivityResult.wifi || event == ConnectivityResult.mobile) && hasShowConnectionError) {
+        hasShowConnectionError = false;
         Get.closeAllSnackbars();
         Get.showSnackbar(
           GetSnackBar(
@@ -35,7 +35,7 @@ mixin ConnectivityManager {
                 Expanded(
                   child: Text(
                     'Conexão reestabelecida! A sincronização está ativada novamente.',
-                    style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                    style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                           color: Theme.of(Get.context!).colorScheme.onError,
                         ),
                   ),
@@ -59,7 +59,7 @@ mixin ConnectivityManager {
             Expanded(
               child: Text(
                 'Parece que você está sem conexão, a sincronização está desativada.',
-                style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                       color: Theme.of(Get.context!).colorScheme.onError,
                     ),
               ),

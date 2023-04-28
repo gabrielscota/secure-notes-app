@@ -9,7 +9,7 @@ class AddNewNoteFloatingActionButton extends StatefulWidget {
   final ScrollController scrollController;
 
   const AddNewNoteFloatingActionButton({
-    final Key? key,
+    Key? key,
     required this.presenter,
     required this.scrollController,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class _AddNewNoteFloatingActionButtonState extends State<AddNewNoteFloatingActio
   }
 
   @override
-  Widget build(final BuildContext context) => SizedBox(
+  Widget build(BuildContext context) => SizedBox(
         height: 60,
         child: FloatingActionButton.extended(
           onPressed: widget.presenter.goToNotePage,
@@ -58,7 +58,7 @@ class _AddNewNoteFloatingActionButtonState extends State<AddNewNoteFloatingActio
           label: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             reverseDuration: const Duration(milliseconds: 300),
-            transitionBuilder: (final child, final animation) => FadeTransition(
+            transitionBuilder: (child, animation) => FadeTransition(
               opacity: animation,
               child: SizeTransition(
                 sizeFactor: animation,
@@ -76,7 +76,7 @@ class _AddNewNoteFloatingActionButtonState extends State<AddNewNoteFloatingActio
                       const SizedBox(width: 8),
                       Text(
                         'Write',
-                        style: Theme.of(context).textTheme.headline6?.copyWith(
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),
                       ),

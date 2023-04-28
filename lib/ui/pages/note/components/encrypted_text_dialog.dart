@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Future<void> showEncryptedTextDialog(final String _encryptedText, final String _decryptedText) async {
+Future<void> showEncryptedTextDialog(String encryptedText, String decryptedText) async {
   await Get.dialog(
     Dialog(
       backgroundColor: Theme.of(Get.context!).colorScheme.onPrimary,
@@ -18,7 +18,7 @@ Future<void> showEncryptedTextDialog(final String _encryptedText, final String _
                 Text(
                   'Encrypted Text',
                   textAlign: TextAlign.left,
-                  style: Theme.of(Get.context!).textTheme.headline6?.copyWith(
+                  style: Theme.of(Get.context!).textTheme.titleLarge?.copyWith(
                         color: Theme.of(Get.context!).colorScheme.primary,
                       ),
                 ),
@@ -28,9 +28,9 @@ Future<void> showEncryptedTextDialog(final String _encryptedText, final String _
                   children: [
                     Expanded(
                       child: Text(
-                        _encryptedText,
+                        encryptedText,
                         textAlign: TextAlign.left,
-                        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                        style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                               color: Theme.of(Get.context!).colorScheme.primary,
                             ),
                       ),
@@ -46,7 +46,7 @@ Future<void> showEncryptedTextDialog(final String _encryptedText, final String _
                 Text(
                   'Decrypted Text',
                   textAlign: TextAlign.left,
-                  style: Theme.of(Get.context!).textTheme.headline6?.copyWith(
+                  style: Theme.of(Get.context!).textTheme.titleLarge?.copyWith(
                         color: Theme.of(Get.context!).colorScheme.primary,
                       ),
                 ),
@@ -56,9 +56,9 @@ Future<void> showEncryptedTextDialog(final String _encryptedText, final String _
                   children: [
                     Expanded(
                       child: Text(
-                        _decryptedText,
+                        decryptedText,
                         textAlign: TextAlign.left,
-                        style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                        style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                               color: Theme.of(Get.context!).colorScheme.primary,
                             ),
                       ),

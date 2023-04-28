@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FoldersPageView extends StatefulWidget {
-  const FoldersPageView({final Key? key}) : super(key: key);
+  const FoldersPageView({Key? key}) : super(key: key);
 
   @override
   State<FoldersPageView> createState() => _FoldersPageViewState();
@@ -18,7 +18,7 @@ class _FoldersPageViewState extends State<FoldersPageView> with TickerProviderSt
   }
 
   @override
-  Widget build(final BuildContext context) => CustomScrollView(
+  Widget build(BuildContext context) => CustomScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -27,7 +27,7 @@ class _FoldersPageViewState extends State<FoldersPageView> with TickerProviderSt
               padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
               child: Text(
                 'Cooming Soon',
-                style: Theme.of(context).textTheme.headline4?.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
               ),

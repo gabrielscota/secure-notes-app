@@ -10,7 +10,7 @@ class LocalCreateSecretKey implements CreateSecretKeyUseCase {
 
   @override
   Future<String> create() async {
-    final String _secretKey = await encryptGenerateKey.generate();
-    return _secretKey;
+    final String secretKey = await encryptGenerateKey.generate();
+    return secretKey;
   }
 }

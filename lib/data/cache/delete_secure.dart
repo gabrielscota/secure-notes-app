@@ -1,3 +1,3 @@
 abstract class DeleteSecureCacheStorage {
-  Future<void> delete({required final String key});
+  Future<void> delete({required String key});
 }

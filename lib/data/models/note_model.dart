@@ -31,7 +31,7 @@ class NoteModel extends NoteEntity {
           updatedAt: dtoUpdatedAt,
         );
 
-  factory NoteModel.fromMap({required final Map<String, dynamic> map}) {
+  factory NoteModel.fromMap({required Map<String, dynamic> map}) {
     try {
       if (!map.keys.toSet().containsAll([
         'id',
@@ -49,8 +49,7 @@ class NoteModel extends NoteEntity {
         dtoTitle: (map['title'] ?? '').toString(),
         dtoText: (map['text'] ?? '').toString(),
         dtoIsFavorite: (map['isFavorite'] ?? false) as bool,
-        dtoTags:
-            map['tags'] != null ? (map['tags'] as List).map((final tag) => TagModel.fromMap(map: tag)).toList() : [],
+        dtoTags: map['tags'] != null ? (map['tags'] as List).map((tag) => TagModel.fromMap(map: tag)).toList() : [],
         dtoCreatedAt: (map['createdAt'] ?? '').toString(),
         dtoUpdatedAt: (map['updatedAt'] ?? '').toString(),
       );
@@ -59,14 +58,14 @@ class NoteModel extends NoteEntity {
     }
   }
 
-  factory NoteModel.fromDomain({required final NoteEntity entity}) {
+  factory NoteModel.fromDomain({required NoteEntity entity}) {
     try {
       return NoteModel(
         dtoId: entity.id,
         dtoTitle: entity.title,
         dtoText: entity.text,
         dtoIsFavorite: entity.isFavorite,
-        dtoTags: entity.tags.map((final tag) => TagModel.fromDomain(entity: tag)).toList(),
+        dtoTags: entity.tags.map((tag) => TagModel.fromDomain(entity: tag)).toList(),
         dtoCreatedAt: entity.createdAt,
         dtoUpdatedAt: entity.updatedAt,
       );
@@ -80,7 +79,7 @@ class NoteModel extends NoteEntity {
         'title': dtoTitle,
         'text': dtoText,
         'isFavorite': dtoIsFavorite,
-        'tags': dtoTags.map((final tag) => tag.toMap()).toList(),
+        'tags': dtoTags.map((tag) => tag.toMap()).toList(),
         'createdAt': dtoCreatedAt,
         'updatedAt': dtoUpdatedAt,
       };

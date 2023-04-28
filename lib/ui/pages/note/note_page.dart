@@ -10,7 +10,7 @@ class NotePage extends StatefulWidget {
   final NotePresenter presenter;
 
   const NotePage({
-    final Key? key,
+    Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class _NotePageState extends State<NotePage> {
   }
 
   @override
-  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,
@@ -67,7 +67,7 @@ class _NotePageState extends State<NotePage> {
                                   disabledBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
                                   hintText: 'Title',
-                                  hintStyle: Theme.of(context).textTheme.headline4?.copyWith(
+                                  hintStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                         color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -76,7 +76,7 @@ class _NotePageState extends State<NotePage> {
                                   contentPadding: EdgeInsets.zero,
                                 ),
                                 keyboardType: TextInputType.text,
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme.of(context).textTheme.headlineSmall,
                                 textCapitalization: TextCapitalization.sentences,
                               ),
                             ),
@@ -93,7 +93,7 @@ class _NotePageState extends State<NotePage> {
                               disabledBorder: InputBorder.none,
                               focusedErrorBorder: InputBorder.none,
                               hintText: 'Write your note..',
-                              hintStyle: Theme.of(context).textTheme.headline6?.copyWith(
+                              hintStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
                                     color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -105,7 +105,7 @@ class _NotePageState extends State<NotePage> {
                             maxLines: null,
                             keyboardType: TextInputType.text,
                             autofocus: true,
-                            style: Theme.of(context).textTheme.headline6?.copyWith(
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.w400,
                                 ),
                             textCapitalization: TextCapitalization.sentences,

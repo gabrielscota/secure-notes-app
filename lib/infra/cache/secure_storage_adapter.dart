@@ -9,7 +9,7 @@ class SecureStorageAdapter implements DeleteSecureCacheStorage, FetchSecureCache
   SecureStorageAdapter({required this.secureStorage});
 
   @override
-  Future<void> delete({required final String key}) async {
+  Future<void> delete({required String key}) async {
     try {
       await secureStorage.delete(key: key);
     } on CacheError {
@@ -18,7 +18,7 @@ class SecureStorageAdapter implements DeleteSecureCacheStorage, FetchSecureCache
   }
 
   @override
-  Future<String> fetch({required final String key}) async {
+  Future<String> fetch({required String key}) async {
     try {
       return await secureStorage.read(key: key) ?? '';
     } on CacheError {
@@ -27,7 +27,7 @@ class SecureStorageAdapter implements DeleteSecureCacheStorage, FetchSecureCache
   }
 
   @override
-  Future<void> save({required final String key, required final String value}) async {
+  Future<void> save({required String key, required String value}) async {
     try {
       await secureStorage.write(key: key, value: value);
     } on CacheError {

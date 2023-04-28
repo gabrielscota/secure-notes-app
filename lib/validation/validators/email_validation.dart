@@ -10,7 +10,7 @@ class EmailValidation extends Equatable implements FieldValidation {
   const EmailValidation({required this.field});
 
   @override
-  ValidationError validate(final Map input) {
+  ValidationError validate(Map input) {
     final regex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     final isValid = (input[field] as String).isNotEmpty != true || regex.hasMatch(input[field].toString());
     return isValid ? ValidationError.noError : ValidationError.invalidField;

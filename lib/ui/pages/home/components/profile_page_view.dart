@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
 class ProfilePageView extends StatefulWidget {
-  const ProfilePageView({final Key? key}) : super(key: key);
+  const ProfilePageView({Key? key}) : super(key: key);
 
   @override
   State<ProfilePageView> createState() => _ProfilePageViewState();
@@ -19,7 +19,7 @@ class _ProfilePageViewState extends State<ProfilePageView> with TickerProviderSt
   }
 
   @override
-  Widget build(final BuildContext context) => CustomScrollView(
+  Widget build(BuildContext context) => CustomScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -34,13 +34,13 @@ class _ProfilePageViewState extends State<ProfilePageView> with TickerProviderSt
                       children: [
                         TextSpan(
                           text: 'Hi, ',
-                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                               ),
                         ),
                         TextSpan(
                           text: 'Gabriel Scotá',
-                          style: Theme.of(context).textTheme.headline4?.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 color: Theme.of(context).colorScheme.primary,
                               ),
                         ),

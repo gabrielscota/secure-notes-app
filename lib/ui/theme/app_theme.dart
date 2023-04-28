@@ -12,22 +12,21 @@ mixin AppTheme {
   static ThemeData lightThemeData = themeData(lightColorScheme, _lightFocusColor);
   static ThemeData darkThemeData = themeData(darkColorScheme, _darkFocusColor);
 
-  static ThemeData themeData(final ColorScheme colorScheme, final Color focusColor) => ThemeData(
+  static ThemeData themeData(ColorScheme colorScheme, Color focusColor) => ThemeData(
         canvasColor: colorScheme.background,
-        colorScheme: colorScheme,
         disabledColor: colorScheme.onBackground.withAlpha(40),
         dividerColor: colorScheme.onBackground.withAlpha(40),
         elevatedButtonTheme: elevatedButtonThemeData(colorScheme),
-        errorColor: colorScheme.error,
         focusColor: focusColor,
         fontFamily: 'Poppins',
         highlightColor: Colors.transparent,
         iconTheme: IconThemeData(color: colorScheme.onPrimary),
         inputDecorationTheme: inputDecorationTheme(colorScheme),
         primaryColor: colorScheme.primary,
-        primaryColorLight: colorScheme.primaryVariant,
+        primaryColorLight: colorScheme.primaryContainer,
         scaffoldBackgroundColor: colorScheme.background,
         textTheme: AppTextTheme.poppinsTextTheme,
+        colorScheme: colorScheme.copyWith(error: colorScheme.error),
       );
 
   static const ColorScheme lightColorScheme = ColorScheme(
@@ -40,9 +39,7 @@ mixin AppTheme {
     onSecondary: Color(0xFFFCFCFC),
     onSurface: Color(0xFF303030),
     primary: Color(0xFF303030),
-    primaryVariant: Color(0xFF595959),
     secondary: Color(0xFF31844A),
-    secondaryVariant: Color(0xFF63B476),
     surface: Color(0xFFFFFFFF),
   );
 
@@ -56,28 +53,27 @@ mixin AppTheme {
     onSecondary: Color(0xFF303030),
     onSurface: Color(0xFFFCFCFC),
     primary: Color(0xFF303030),
-    primaryVariant: Color(0xFF595959),
     secondary: Color(0xFF31844A),
-    secondaryVariant: Color(0xFF63B476),
     surface: Color(0xFF383838),
   );
 
-  static ElevatedButtonThemeData elevatedButtonThemeData(final ColorScheme colorScheme) => ElevatedButtonThemeData(
+  static ElevatedButtonThemeData elevatedButtonThemeData(ColorScheme colorScheme) => ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          foregroundColor: colorScheme.onPrimary,
+          backgroundColor: colorScheme.primary,
           elevation: 0,
-          onPrimary: colorScheme.onPrimary,
-          onSurface: colorScheme.onSurface,
+          disabledForegroundColor: colorScheme.onSurface.withOpacity(0.38),
+          disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.12),
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
-          primary: colorScheme.primary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: AppTextTheme.poppinsTextTheme.subtitle1?.copyWith(
+          textStyle: AppTextTheme.poppinsTextTheme.titleMedium?.copyWith(
             color: colorScheme.onPrimary,
             fontWeight: FontWeight.w400,
           ),
         ),
       );
 
-  static InputDecorationTheme inputDecorationTheme(final ColorScheme colorScheme) => InputDecorationTheme(
+  static InputDecorationTheme inputDecorationTheme(ColorScheme colorScheme) => InputDecorationTheme(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
@@ -108,8 +104,8 @@ mixin AppTheme {
             color: colorScheme.error,
           ),
         ),
-        labelStyle: AppTextTheme.poppinsTextTheme.bodyText1,
-        hintStyle: AppTextTheme.poppinsTextTheme.subtitle1?.copyWith(
+        labelStyle: AppTextTheme.poppinsTextTheme.bodyLarge,
+        hintStyle: AppTextTheme.poppinsTextTheme.titleMedium?.copyWith(
           color: colorScheme.onBackground.withAlpha(40),
         ),
       );

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomeUserHeaderSliver extends StatelessWidget {
-  const HomeUserHeaderSliver({final Key? key}) : super(key: key);
+  const HomeUserHeaderSliver({Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => SliverToBoxAdapter(
+  Widget build(BuildContext context) => SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
           child: Row(
@@ -16,13 +16,13 @@ class HomeUserHeaderSliver extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: 'Hi, ',
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                           ),
                     ),
                     TextSpan(
                       text: 'Gabriel Scotá',
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                           ),
                     ),

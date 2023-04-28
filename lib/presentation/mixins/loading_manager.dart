@@ -3,5 +3,5 @@ import 'package:get/get.dart';
 mixin LoadingManager on GetxController {
   final RxBool _isLoading = false.obs;
   Stream<bool> get isLoadingStream => _isLoading.stream;
-  set isLoading(final bool value) => _isLoading.subject.add(value);
+  set isLoading(bool value) => _isLoading.subject.add(value);
 }

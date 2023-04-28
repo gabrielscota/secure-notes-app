@@ -8,7 +8,7 @@ class AnimatedBottomNavigationBarItem extends StatefulWidget {
   final IconData icon;
 
   const AnimatedBottomNavigationBarItem({
-    final Key? key,
+    Key? key,
     required this.index,
     required this.selectedIndex,
     required this.handleSelectedItem,
@@ -52,7 +52,7 @@ class _AnimatedBottomNavigationBarItemState extends State<AnimatedBottomNavigati
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     if (widget.selectedIndex == widget.index) {
       _controller.forward();
     } else {
@@ -65,7 +65,7 @@ class _AnimatedBottomNavigationBarItemState extends State<AnimatedBottomNavigati
         onTap: () => widget.handleSelectedItem(widget.index),
         child: AnimatedBuilder(
           animation: _controller,
-          builder: (final context, final _) => Stack(
+          builder: (context, _) => Stack(
             alignment: Alignment.center,
             children: [
               SlideTransition(
@@ -83,7 +83,7 @@ class _AnimatedBottomNavigationBarItemState extends State<AnimatedBottomNavigati
                   children: [
                     Text(
                       widget.label,
-                      style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
                     ),

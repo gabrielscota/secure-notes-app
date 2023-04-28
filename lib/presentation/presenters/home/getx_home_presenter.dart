@@ -29,17 +29,17 @@ class GetxHomePresenter extends GetxController
   Future<void> fetchNotes() async {
     try {
       isLoading = true;
-      final FoldersEntity _folders = await fetchFoldersUseCase.call();
+      final FoldersEntity folders = await fetchFoldersUseCase.call();
       // TODO: Remover loading futuramente
       await Future.delayed(const Duration(seconds: 1));
-      final List<NoteViewModel> _notesViewModel = [];
-      for (final folder in _folders.folders) {
-        _notesViewModel.addAll(folder.toViewModel().notes);
+      final List<NoteViewModel> notesViewModel = [];
+      for (final folder in folders.folders) {
+        notesViewModel.addAll(folder.toViewModel().notes);
       }
       isLoading = false;
       await Future.delayed(const Duration(milliseconds: 100));
       _allNotes.addAll([]);
-      _favoriteNotes.addAll(_notesViewModel.where((final note) => note.isFavorite));
+      _favoriteNotes.addAll(notesViewModel.where((note) => note.isFavorite));
     } on DomainError catch (error) {
       isLoading = false;
       await Future.delayed(const Duration(milliseconds: 100));
@@ -49,7 +49,7 @@ class GetxHomePresenter extends GetxController
   }
 
   @override
-  void addNote({required final NoteViewModel note}) {
+  void addNote({required NoteViewModel note}) {
     _allNotes.add(note);
   }
 

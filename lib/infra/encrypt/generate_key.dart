@@ -15,10 +15,10 @@ class Chacha20GenerateKey implements EncryptGenerateKey {
   @override
   Future<String> generate() async {
     try {
-      final SecretKey _secretKey = await algorithm.newSecretKey();
-      final List<int> _secretKeyBytes = await _secretKey.extractBytes();
-      final String _secretKeyText = base64Encode(_secretKeyBytes);
-      return _secretKeyText;
+      final SecretKey secretKey = await algorithm.newSecretKey();
+      final List<int> secretKeyBytes = await secretKey.extractBytes();
+      final String secretKeyText = base64Encode(secretKeyBytes);
+      return secretKeyText;
     } on EncryptError {
       throw EncryptError.decryptData();
     }

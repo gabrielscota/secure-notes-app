@@ -7,7 +7,7 @@ import '../../../ui/pages/pages.dart';
 import '../../mixins/mixins.dart';
 
 class GetxNotePresenter extends GetxController with UIErrorManager implements NotePresenter {
-  // TODO(Gabriel): Remover usecase da camada de data e criar na camada de dominio
+  // TODO: Remover usecase da camada de data e criar na camada de dominio
   final EncryptData encryptData;
   final DecryptData decryptData;
   final FetchSecretKeyUseCase fetchSecretKey;
@@ -19,11 +19,11 @@ class GetxNotePresenter extends GetxController with UIErrorManager implements No
   });
 
   @override
-  Future<void> save({required final String text}) async {
+  Future<void> save({required String text}) async {
     try {
-      final String _secretKey = await fetchSecretKey.fetch();
-      final String _encryptedText = await encryptData.encrypt(text: text, secretKey: _secretKey);
-      final String _decryptedText = await decryptData.decrypt(text: _encryptedText, secretKey: _secretKey);
+      final String secretKey = await fetchSecretKey.fetch();
+      final String encryptedText = await encryptData.encrypt(text: text, secretKey: secretKey);
+      final String decryptedText = await decryptData.decrypt(text: encryptedText, secretKey: secretKey);
     } on DomainError catch (error) {
       snackbarError = '${error.message} [${error.code.name}]';
     }

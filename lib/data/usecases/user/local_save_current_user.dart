@@ -12,7 +12,7 @@ class LocalSaveCurrentUser implements SaveCurrentUserUseCase {
   });
 
   @override
-  Future<void> call({required final UserEntity user}) async {
+  Future<void> call({required UserEntity user}) async {
     try {
       final String userJson = UserModel.fromDomain(entity: user).toJson();
       await saveSecureCacheStorage.save(key: 'currentUser', value: userJson);

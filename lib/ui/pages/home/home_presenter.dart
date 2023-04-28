@@ -10,7 +10,7 @@ abstract class HomePresenter {
   Stream<List<NoteViewModel>> get allNotesStream;
   Stream<List<NoteViewModel>> get favoriteNotesStream;
   Future<void> fetchNotes();
-  void addNote({required final NoteViewModel note});
+  void addNote({required NoteViewModel note});
 
   void goToNotePage();
 }

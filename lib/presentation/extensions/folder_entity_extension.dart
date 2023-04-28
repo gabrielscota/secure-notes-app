@@ -7,6 +7,6 @@ extension FolderEntityExtension on FolderEntity {
         id: id,
         title: title,
         description: description,
-        notes: notes.map((final note) => note.toViewModel()).toList(),
+        notes: notes.map((note) => note.toViewModel()).toList(),
       );
 }

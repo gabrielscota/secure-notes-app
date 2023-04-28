@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 mixin NavigationManager on GetxController {
   final Rx<NavigationArguments> _navigateToWithArgs = Rx<NavigationArguments>(const NavigationArguments(route: ''));
   Stream<NavigationArguments> get navigateToWithArgsStream => _navigateToWithArgs.stream;
-  set navigateToWithArgs(final NavigationArguments value) => _navigateToWithArgs.subject.add(value);
+  set navigateToWithArgs(NavigationArguments value) => _navigateToWithArgs.subject.add(value);
 }
 
 class NavigationArguments extends Equatable {

@@ -14,7 +14,7 @@ class CompareFieldsValidation extends Equatable implements FieldValidation {
   });
 
   @override
-  ValidationError validate(final Map input) =>
+  ValidationError validate(Map input) =>
       input[field] != null && input[fieldToCompare] != null && input[field] != input[fieldToCompare]
           ? ValidationError.invalidField
           : ValidationError.noError;

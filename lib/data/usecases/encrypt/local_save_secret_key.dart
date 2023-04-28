@@ -9,7 +9,7 @@ class LocalSaveSecretKey implements SaveSecretKeyUseCase {
   });
 
   @override
-  Future<void> save({required final String secretKey}) async {
+  Future<void> save({required String secretKey}) async {
     await saveSecure.save(key: 'secretKey', value: secretKey);
   }
 }

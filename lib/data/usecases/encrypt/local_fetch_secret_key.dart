@@ -10,7 +10,7 @@ class LocalFetchSecretKey implements FetchSecretKeyUseCase {
 
   @override
   Future<String> fetch() async {
-    final String _secretKey = await fetchSecure.fetch(key: 'secretKey');
-    return _secretKey;
+    final String secretKey = await fetchSecure.fetch(key: 'secretKey');
+    return secretKey;
   }
 }

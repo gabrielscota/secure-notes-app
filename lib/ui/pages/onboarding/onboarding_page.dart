@@ -9,7 +9,7 @@ class OnboardingPage extends StatefulWidget {
   final OnboardingPresenter presenter;
 
   const OnboardingPage({
-    final Key? key,
+    Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -30,7 +30,7 @@ class _OnboardingPageState extends State<OnboardingPage> with NavigationManager 
   }
 
   @override
-  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,
@@ -53,7 +53,7 @@ class _OnboardingPageState extends State<OnboardingPage> with NavigationManager 
                       children: [
                         Text(
                           'Please enter your name to get started.',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 8),
                         Expanded(
@@ -71,7 +71,7 @@ class _OnboardingPageState extends State<OnboardingPage> with NavigationManager 
                                     disabledBorder: InputBorder.none,
                                     focusedErrorBorder: InputBorder.none,
                                     hintText: 'Name',
-                                    hintStyle: Theme.of(context).textTheme.headline4?.copyWith(
+                                    hintStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                           color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -80,7 +80,7 @@ class _OnboardingPageState extends State<OnboardingPage> with NavigationManager 
                                     contentPadding: EdgeInsets.zero,
                                   ),
                                   keyboardType: TextInputType.name,
-                                  style: Theme.of(context).textTheme.headline4?.copyWith(
+                                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                         color: Theme.of(context).colorScheme.primary.withOpacity(0.6),
                                       ),
                                   textCapitalization: TextCapitalization.words,
@@ -101,7 +101,7 @@ class _OnboardingPageState extends State<OnboardingPage> with NavigationManager 
                               child: StreamBuilder<bool>(
                                 stream: widget.presenter.isFormValidStream,
                                 initialData: false,
-                                builder: (final context, final snapshot) => ElevatedButton(
+                                builder: (context, snapshot) => ElevatedButton(
                                   onPressed: snapshot.hasData && snapshot.data!
                                       ? () async {
                                           widget.presenter.saveUser();

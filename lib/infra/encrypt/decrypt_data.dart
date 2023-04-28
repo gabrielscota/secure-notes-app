@@ -13,14 +13,14 @@ class Chacha20DecryptData implements DecryptData {
   });
 
   @override
-  Future<String> decrypt({required final String text, required final String secretKey}) async {
+  Future<String> decrypt({required String text, required String secretKey}) async {
     try {
-      final List<int> _decrypted = await algorithm.decrypt(
+      final List<int> decrypted = await algorithm.decrypt(
         SecretBox.fromConcatenation(base64Decode(text), nonceLength: 12, macLength: 16),
         secretKey: SecretKey(base64Decode(secretKey)),
       );
-      final String _decryptedText = utf8.decode(_decrypted);
-      return _decryptedText;
+      final String decryptedText = utf8.decode(decrypted);
+      return decryptedText;
     } on EncryptError {
       throw EncryptError.decryptData();
     }

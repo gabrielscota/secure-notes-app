@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-void showSnackbarError({required final String message}) {
+void showSnackbarError({required String message}) {
   if (Get.isSnackbarOpen) {
     Get.closeAllSnackbars();
   } else {
@@ -19,7 +19,7 @@ void showSnackbarError({required final String message}) {
             Expanded(
               child: Text(
                 message,
-                style: Theme.of(Get.context!).textTheme.subtitle1?.copyWith(
+                style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
                       color: Theme.of(Get.context!).colorScheme.onError,
                     ),
               ),

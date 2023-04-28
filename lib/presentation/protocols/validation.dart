@@ -1,5 +1,5 @@
 abstract class Validation {
-  ValidationError validate({required final String field, required final Map input});
+  ValidationError validate({required String field, required Map input});
 }
 
 enum ValidationError { requiredField, invalidField, invalidCpf, noError }

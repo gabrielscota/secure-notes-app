@@ -28,7 +28,7 @@ class FolderModel extends FolderEntity {
           updatedAt: dtoUpdatedAt,
         );
 
-  factory FolderModel.fromMap({required final Map<String, dynamic> map}) {
+  factory FolderModel.fromMap({required Map<String, dynamic> map}) {
     try {
       if (!map.keys.toSet().containsAll([
         'id',
@@ -44,9 +44,8 @@ class FolderModel extends FolderEntity {
         dtoId: (map['id'] ?? '').toString(),
         dtoTitle: (map['title'] ?? '').toString(),
         dtoDescription: (map['description'] ?? '').toString(),
-        dtoNotes: map['notes'] != null
-            ? (map['notes'] as List).map((final note) => NoteModel.fromMap(map: note)).toList()
-            : [],
+        dtoNotes:
+            map['notes'] != null ? (map['notes'] as List).map((note) => NoteModel.fromMap(map: note)).toList() : [],
         dtoCreatedAt: (map['createdAt'] ?? '').toString(),
         dtoUpdatedAt: (map['updatedAt'] ?? '').toString(),
       );
@@ -55,13 +54,13 @@ class FolderModel extends FolderEntity {
     }
   }
 
-  factory FolderModel.fromDomain({required final FolderEntity entity}) {
+  factory FolderModel.fromDomain({required FolderEntity entity}) {
     try {
       return FolderModel(
         dtoId: entity.id,
         dtoTitle: entity.title,
         dtoDescription: entity.description,
-        dtoNotes: entity.notes.map((final note) => NoteModel.fromDomain(entity: note)).toList(),
+        dtoNotes: entity.notes.map((note) => NoteModel.fromDomain(entity: note)).toList(),
         dtoCreatedAt: entity.createdAt,
         dtoUpdatedAt: entity.updatedAt,
       );
@@ -74,7 +73,7 @@ class FolderModel extends FolderEntity {
         'id': dtoId,
         'title': dtoTitle,
         'description': dtoDescription,
-        'notes': dtoNotes.map((final note) => note.toMap()).toList(),
+        'notes': dtoNotes.map((note) => note.toMap()).toList(),
         'createdAt': dtoCreatedAt,
         'updatedAt': dtoUpdatedAt,
       };

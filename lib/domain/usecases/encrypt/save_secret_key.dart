@@ -1,3 +1,3 @@
 abstract class SaveSecretKeyUseCase {
-  Future<void> save({required final String secretKey});
+  Future<void> save({required String secretKey});
 }

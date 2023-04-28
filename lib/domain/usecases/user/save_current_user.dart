@@ -1,5 +1,5 @@
 import '../../entities/entities.dart';
 
 abstract class SaveCurrentUserUseCase {
-  Future<void> call({required final UserEntity user});
+  Future<void> call({required UserEntity user});
 }

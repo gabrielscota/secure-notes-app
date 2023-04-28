@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 mixin SystemNavigationUIOverlays {
   void statusBarIconBrightness(
-    final BuildContext context, {
-    final Color systemNavigationBarColor = Colors.transparent,
+    BuildContext context, {
+    Color systemNavigationBarColor = Colors.transparent,
   }) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

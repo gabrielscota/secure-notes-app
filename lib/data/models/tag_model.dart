@@ -21,7 +21,7 @@ class TagModel extends TagEntity {
           updatedAt: dtoUpdatedAt,
         );
 
-  factory TagModel.fromMap({required final Map<String, dynamic> map}) {
+  factory TagModel.fromMap({required Map<String, dynamic> map}) {
     try {
       if (!map.keys.toSet().containsAll([
         'id',
@@ -42,7 +42,7 @@ class TagModel extends TagEntity {
     }
   }
 
-  factory TagModel.fromDomain({required final TagEntity entity}) {
+  factory TagModel.fromDomain({required TagEntity entity}) {
     try {
       return TagModel(
         dtoId: entity.id,

@@ -7,13 +7,13 @@ import '../ui/theme/theme.dart';
 import 'factories/factories.dart';
 
 class App extends StatelessWidget {
-  const App({final Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   static final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   static final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
-  Widget build(final BuildContext context) => GetMaterialApp(
+  Widget build(BuildContext context) => GetMaterialApp(
         title: 'Notes',
         debugShowCheckedModeBanner: false,
         color: const Color(0xFFFCFCFC),

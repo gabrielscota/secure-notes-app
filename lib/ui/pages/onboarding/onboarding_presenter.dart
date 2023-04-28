@@ -6,7 +6,7 @@ abstract class OnboardingPresenter {
   Stream<bool> get isFormValidStream;
 
   Stream<UIError> get nameErrorStream;
-  void validateName(final String value);
+  void validateName(String value);
 
   Future<void> saveUser();
 }

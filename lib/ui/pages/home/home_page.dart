@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
   final HomePresenter presenter;
 
   const HomePage({
-    final Key? key,
+    Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> with NavigationManager, UIErrorMana
   }
 
   @override
-  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,

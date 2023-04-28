@@ -11,7 +11,7 @@ class FoldersModel extends FoldersEntity {
     required this.dtoFolders,
   }) : super(folders: dtoFolders);
 
-  factory FoldersModel.fromJson({required final String json}) {
+  factory FoldersModel.fromJson({required String json}) {
     try {
       final Map<String, dynamic> jsonDecoded = jsonDecode(json.isEmpty ? '{}' : json);
       if (!jsonDecoded.keys.toSet().containsAll([
@@ -21,7 +21,7 @@ class FoldersModel extends FoldersEntity {
       }
       return FoldersModel(
         dtoFolders: jsonDecoded['folders'] != null
-            ? (jsonDecoded['folders'] as List).map((final folder) => FolderModel.fromMap(map: folder)).toList()
+            ? (jsonDecoded['folders'] as List).map((folder) => FolderModel.fromMap(map: folder)).toList()
             : [],
       );
     } on ModelError {
@@ -31,10 +31,10 @@ class FoldersModel extends FoldersEntity {
     }
   }
 
-  factory FoldersModel.fromDomain({required final FoldersEntity entity}) {
+  factory FoldersModel.fromDomain({required FoldersEntity entity}) {
     try {
       return FoldersModel(
-        dtoFolders: entity.folders.map((final folder) => FolderModel.fromDomain(entity: folder)).toList(),
+        dtoFolders: entity.folders.map((folder) => FolderModel.fromDomain(entity: folder)).toList(),
       );
     } catch (_) {
       throw ModelError.localParseData();
@@ -42,7 +42,7 @@ class FoldersModel extends FoldersEntity {
   }
 
   Map<String, dynamic> toMap() => {
-        'folders': dtoFolders.map((final folder) => folder.toMap()).toList(),
+        'folders': dtoFolders.map((folder) => folder.toMap()).toList(),
       };
 
   String toJson() => jsonEncode(toMap());

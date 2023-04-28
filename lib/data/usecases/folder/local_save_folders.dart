@@ -12,7 +12,7 @@ class LocalSaveFolders implements SaveFoldersUseCase {
   });
 
   @override
-  Future<void> call({required final FoldersEntity folders}) async {
+  Future<void> call({required FoldersEntity folders}) async {
     try {
       final String foldersJson = FoldersModel.fromDomain(entity: folders).toJson();
       await saveSecureCacheStorage.save(key: 'folders', value: foldersJson);

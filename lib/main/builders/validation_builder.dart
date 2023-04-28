@@ -8,7 +8,7 @@ class ValidationBuilder {
 
   ValidationBuilder._();
 
-  static ValidationBuilder field(final String fieldName) {
+  static ValidationBuilder field(String fieldName) {
     _instance = ValidationBuilder._();
     _instance?.fieldName = fieldName;
     return _instance!;
@@ -24,12 +24,12 @@ class ValidationBuilder {
     return this;
   }
 
-  ValidationBuilder min(final int size) {
+  ValidationBuilder min(int size) {
     validations.add(MinLengthValidation(field: fieldName, size: size));
     return this;
   }
 
-  ValidationBuilder sameAs(final String fieldToCompare) {
+  ValidationBuilder sameAs(String fieldToCompare) {
     validations.add(
       CompareFieldsValidation(
         field: fieldName,

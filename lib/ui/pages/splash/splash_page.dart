@@ -9,7 +9,7 @@ class SplashPage extends StatefulWidget {
   final SplashPresenter presenter;
 
   const SplashPage({
-    final Key? key,
+    Key? key,
     required this.presenter,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> with NavigationManager {
   }
 
   @override
-  Widget build(final BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
+  Widget build(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.light,
@@ -39,7 +39,7 @@ class _SplashPageState extends State<SplashPage> with NavigationManager {
           body: SafeArea(
             child: FutureBuilder(
               future: widget.presenter.loadCurrentUser(),
-              builder: (final context, final snapshot) => Center(
+              builder: (context, snapshot) => Center(
                 child: LottieBuilder.asset(
                   'lib/ui/assets/animations/infinite-loading.json',
                   width: 128,

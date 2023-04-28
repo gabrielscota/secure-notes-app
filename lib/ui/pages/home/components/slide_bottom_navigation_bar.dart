@@ -7,7 +7,7 @@ class SlideBottomNavigationBar extends StatefulWidget {
   final PageController pageController;
 
   const SlideBottomNavigationBar({
-    final Key? key,
+    Key? key,
     required this.pageController,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class _SlideBottomNavigationBarState extends State<SlideBottomNavigationBar> {
     super.initState();
   }
 
-  void _handleSelectedIndex(final int value) {
+  void _handleSelectedIndex(int value) {
     setState(() {
       _selectedIndex = value;
     });
@@ -33,7 +33,7 @@ class _SlideBottomNavigationBarState extends State<SlideBottomNavigationBar> {
   }
 
   @override
-  Widget build(final BuildContext context) => ClipRRect(
+  Widget build(BuildContext context) => ClipRRect(
         child: Container(
           decoration: BoxDecoration(
             color: Colors.grey.shade900,
